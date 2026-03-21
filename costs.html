@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>費用總覽 - 泰國家庭旅遊</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* ===== Page-specific styles for costs.html ===== */
+        :root {
+            --gold: #D4A843;
+            --teal: #2A9D8F;
+            --deep-purple: #264653;
+            --warm-white: #F8F4E8;
+            --gold-light: #F5ECD7;
+            --teal-light: #E0F5F1;
+            --purple-light: #D8E2E7;
+            --danger: #E76F51;
+            --success: #2A9D8F;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Kanit', sans-serif;
+            background-color: var(--warm-white);
+            color: var(--deep-purple);
+            line-height: 1.7;
+        }
+
+        /* ----- Navigation ----- */
+        .site-nav {
+            background: var(--deep-purple);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 12px rgba(38, 70, 83, 0.3);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .nav-logo {
+            font-family: 'Kanit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--warm-white);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            padding: 0.3rem 0;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--gold);
+        }
+
+        /* ----- Hero Section ----- */
+        .hero {
+            background: linear-gradient(135deg, var(--deep-purple) 0%, #1a3a47 50%, var(--teal) 100%);
+            color: var(--warm-white);
+            text-align: center;
+            padding: 5rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(212, 168, 67, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 30%, rgba(42, 157, 143, 0.15) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: 'Kanit', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero h1 .icon {
+            display: inline-block;
+            margin: 0 0.3rem;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            font-weight: 300;
+            opacity: 0.9;
+            letter-spacing: 0.5px;
+        }
+
+        .hero .subtitle .divider {
+            display: inline-block;
+            margin: 0 0.6rem;
+            opacity: 0.5;
+        }
+
+        /* ----- Section Layout ----- */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Kanit', sans-serif;
+            font-size: clamp(1.5rem, 3.5vw, 2rem);
+            color: var(--deep-purple);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.8rem;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--teal));
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            margin-top: 0.8rem;
+            color: #5a7a8a;
+            font-size: 1rem;
+        }
+
+        /* ----- Accommodation Table ----- */
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(38, 70, 83, 0.08);
+            background: #fff;
+        }
+
+        .cost-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 780px;
+            font-size: 0.95rem;
+        }
+
+        .cost-table thead {
+            background: var(--deep-purple);
+            color: var(--warm-white);
+        }
+
+        .cost-table thead th {
+            padding: 1rem 0.8rem;
+            font-weight: 600;
+            text-align: left;
+            white-space: nowrap;
+            font-size: 0.9rem;
+            letter-spacing: 0.3px;
+        }
+
+        .cost-table tbody tr {
+            border-bottom: 1px solid #eee;
+            transition: background 0.15s;
+        }
+
+        .cost-table tbody tr:hover {
+            background: var(--gold-light);
+        }
+
+        .cost-table tbody td {
+            padding: 0.85rem 0.8rem;
+            vertical-align: middle;
+        }
+
+        .cost-table .row-num {
+            font-weight: 700;
+            color: var(--teal);
+            text-align: center;
+            width: 40px;
+        }
+
+        .cost-table .location {
+            font-weight: 600;
+            color: var(--deep-purple);
+        }
+
+        .cost-table .hotel-name {
+            font-weight: 500;
+        }
+
+        .cost-table .star {
+            color: var(--gold);
+        }
+
+        .cost-table .price {
+            font-weight: 600;
+            color: var(--deep-purple);
+            white-space: nowrap;
+        }
+
+        .cost-table .breakfast-yes {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .cost-table .breakfast-no {
+            color: #999;
+        }
+
+        .cost-table tfoot {
+            background: linear-gradient(135deg, var(--deep-purple), #1a3a47);
+            color: var(--warm-white);
+        }
+
+        .cost-table tfoot td {
+            padding: 1.1rem 0.8rem;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        .total-summary {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding: 1.2rem 2rem;
+            background: linear-gradient(135deg, var(--gold-light), #fff);
+            border-radius: 12px;
+            border-left: 4px solid var(--gold);
+        }
+
+        .total-summary .amount {
+            font-family: 'Kanit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--deep-purple);
+        }
+
+        .total-summary .converted {
+            font-size: 1rem;
+            color: var(--teal);
+            font-weight: 600;
+            margin-top: 0.3rem;
+        }
+
+        /* ----- Ticket Cards ----- */
+        .ticket-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .ticket-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 1.3rem 1.5rem;
+            box-shadow: 0 2px 12px rgba(38, 70, 83, 0.06);
+            border-top: 4px solid var(--teal);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .ticket-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 24px rgba(38, 70, 83, 0.12);
+        }
+
+        .ticket-card.free {
+            border-top-color: var(--success);
+            background: linear-gradient(to bottom right, #f0faf8, #fff);
+        }
+
+        .ticket-card.premium {
+            border-top-color: var(--gold);
+            background: linear-gradient(to bottom right, var(--gold-light), #fff);
+        }
+
+        .ticket-card .card-title {
+            font-family: 'Kanit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--deep-purple);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ticket-card .card-title .emoji {
+            font-size: 1.3rem;
+        }
+
+        .ticket-card .price-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.3rem 0;
+            border-bottom: 1px dashed #e8e2d6;
+            font-size: 0.9rem;
+        }
+
+        .ticket-card .price-row:last-of-type {
+            border-bottom: none;
+        }
+
+        .ticket-card .price-label {
+            color: #6b8a99;
+        }
+
+        .ticket-card .price-value {
+            font-weight: 600;
+            color: var(--deep-purple);
+        }
+
+        .ticket-card .price-value.free-tag {
+            color: var(--success);
+        }
+
+        .ticket-card .card-note {
+            margin-top: 0.7rem;
+            font-size: 0.82rem;
+            color: #8a7a6a;
+            padding: 0.5rem 0.7rem;
+            background: var(--warm-white);
+            border-radius: 6px;
+        }
+
+        /* ----- Saving Tips ----- */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .tip-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 12px rgba(38, 70, 83, 0.06);
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(38, 70, 83, 0.1);
+        }
+
+        .tip-number {
+            flex-shrink: 0;
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--gold), #c9963a);
+            color: #fff;
+            font-family: 'Kanit', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tip-content h3 {
+            font-family: 'Kanit', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--deep-purple);
+            margin-bottom: 0.3rem;
+        }
+
+        .tip-content p {
+            font-size: 0.9rem;
+            color: #5a7a8a;
+        }
+
+        .tip-content .save-badge {
+            display: inline-block;
+            margin-top: 0.4rem;
+            padding: 0.2rem 0.7rem;
+            background: var(--teal-light);
+            color: var(--teal);
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: 20px;
+        }
+
+        /* ----- Budget Overview ----- */
+        .budget-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .budget-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(38, 70, 83, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .budget-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+        }
+
+        .budget-card.save::before {
+            background: linear-gradient(90deg, var(--teal), #3ab8a8);
+        }
+
+        .budget-card.recommend::before {
+            background: linear-gradient(90deg, var(--gold), #e0b84e);
+        }
+
+        .budget-card .card-label {
+            font-family: 'Kanit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #5a7a8a;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .budget-card .budget-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #f0ece3;
+            font-size: 0.95rem;
+        }
+
+        .budget-card .budget-row:last-child {
+            border-bottom: none;
+        }
+
+        .budget-card .budget-row.total-row {
+            border-top: 2px solid var(--deep-purple);
+            border-bottom: none;
+            margin-top: 0.5rem;
+            padding-top: 1rem;
+        }
+
+        .budget-card .budget-row.total-row .budget-val {
+            font-size: 1.4rem;
+        }
+
+        .budget-card .budget-key {
+            color: #6b8a99;
+        }
+
+        .budget-card .budget-val {
+            font-family: 'Kanit', sans-serif;
+            font-weight: 700;
+            color: var(--deep-purple);
+        }
+
+        .budget-card .ntd-val {
+            font-family: 'Kanit', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .budget-card.save .ntd-val {
+            color: var(--teal);
+        }
+
+        .budget-card.recommend .ntd-val {
+            color: var(--gold);
+        }
+
+        /* ----- Booking Guide ----- */
+        .booking-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1rem;
+        }
+
+        .booking-item {
+            background: #fff;
+            border-radius: 10px;
+            padding: 1.2rem 1.5rem;
+            box-shadow: 0 2px 10px rgba(38, 70, 83, 0.06);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .booking-item .platform-icon {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            background: var(--teal-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .booking-item .booking-info h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--deep-purple);
+        }
+
+        .booking-item .booking-info p {
+            font-size: 0.85rem;
+            color: #6b8a99;
+            margin-top: 0.2rem;
+        }
+
+        /* ----- Exchange Note ----- */
+        .exchange-note {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            background: var(--purple-light);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            color: var(--deep-purple);
+        }
+
+        .exchange-note strong {
+            color: var(--teal);
+        }
+
+        /* ----- Footer ----- */
+        .site-footer {
+            background: var(--deep-purple);
+            color: rgba(248, 244, 232, 0.6);
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.85rem;
+            margin-top: 3rem;
+        }
+
+        .site-footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        /* ----- Responsive ----- */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 3.5rem 1.5rem 3rem;
+            }
+
+            .section {
+                padding: 2rem 1rem;
+            }
+
+            .ticket-grid,
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .budget-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .tip-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+        /* ----- Scroll to top ----- */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 48px;
+            height: 48px;
+            background: var(--deep-purple);
+            color: var(--gold);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s, transform 0.2s;
+            box-shadow: 0 4px 12px rgba(38, 70, 83, 0.3);
+            z-index: 99;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="site-nav" aria-label="main navigation">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">泰國家庭旅遊 2025</a>
+            <ul class="nav-links">
+                <li><a href="index.html">首頁</a></li>
+                <li><a href="costs.html" class="active">費用總覽</a></li>
+                <li><a href="checklist.html">行前準備</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>
+                <span class="icon">&#x1F4B0;</span>
+                全行程費用總覽
+            </h1>
+            <p class="subtitle">
+                24晚25天
+                <span class="divider">|</span>
+                4人家庭
+                <span class="divider">|</span>
+                省錢攻略
+            </p>
+        </div>
+    </header>
+
+    <!-- Section 1: Accommodation -->
+    <section class="section" id="accommodation">
+        <div class="section-header">
+            <h2>住宿費用總表</h2>
+            <p>9間精選住宿，24晚舒適入住</p>
+        </div>
+
+        <div class="table-wrapper">
+            <table class="cost-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>地點</th>
+                        <th>住宿</th>
+                        <th>晚數</th>
+                        <th>每晚 (THB)</th>
+                        <th>小計 (THB)</th>
+                        <th>早餐</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="row-num">1</td>
+                        <td class="location">曼谷機場</td>
+                        <td class="hotel-name">BS Residence</td>
+                        <td>1</td>
+                        <td class="price">608-940</td>
+                        <td class="price">608-940</td>
+                        <td class="breakfast-yes">&#10003; 含</td>
+                    </tr>
+                    <tr>
+                        <td class="row-num">2</td>
+                        <td class="location">清邁</td>
+                        <td class="hotel-name">SK House 2</td>
+                        <td>5</td>
+                        <td class="price">~1,435</td>
+                        <td class="price">~7,175</td>
+                        <td>100/人</td>
+                    </tr>
+                    <tr>
+                        <td class="row-num">3</td>
+                        <td class="location">清道</td>
+                        <td class="hotel-name">Chiang Dao Nest 2 <span class="star">&#11088;</span></td>
+                        <td>3</td>
+                        <td class="price">2,945</td>
+                        <td class="price">8,835</td>
+                        <td class="breakfast-no">不含</td>
+                    </tr>
+                    <tr>
+                        <td class="row-num">4</td>
+                        <td class="location">考艾</td>
+                        <td class="hotel-name">Watermill Resort <span class="star">&#11088;</span></td>
+                        <td>4</td>
+                        <td class="price">2,000-3,000</td>
+                        <td class="price">8,000-12,000</td>
+                        <td class="breakfast-no">不含</td>
+                    </tr>
+                    <tr>
+                        <td class="row-num">5</td>
+                        <td class="location">北碧</td>
+                        <td class="hotel-name">Mittapan Hotel</td>
+                        <td>2</td>
+                        <td class="price">~1,600</td>
+                        <td class="price">~3,200</td>
+                        <td class="breakfast-yes">&#10003; 含</td>
+                    </tr>
+                    <tr>
+                        <td class="row-num">6</td>
+                        <td class="location">桂河</td>
+                        <td class="hotel-name">Boutique Raft <span class="star">&#11088;</span></td>
+                        <td>2</td>
+                        <td class="price">~3,000</td>
+                        <td class="price">~6,000</td>
+                        <td class="breakfast-yes">&#10003; 含</td>
+                    </tr>
+                    <tr>
+                        <td class="row-num">7</td>
+                        <td class="location">安帕瓦</td>
+                        <td class="hotel-name">Bansuwan Homestay</td>
+                        <td>1</td>
+                        <td class="price">~1,293</td>
+                        <td class="price">~1,293</td>
+                        <td class="breakfast-yes">&#10003; 含</td>
+                    </tr>
+                    <tr>
+                        <td class="row-num">8</td>
+                        <td class="location">大城</td>
+                        <td class="hotel-name">Auntie House985</td>
+                        <td>1</td>
+                        <td class="price">~500</td>
+                        <td class="price">~500</td>
+                        <td class="breakfast-yes">&#10003; 含</td>
+                    </tr>
+                    <tr>
+                        <td class="row-num">9</td>
+                        <td class="location">曼谷</td>
+                        <td class="hotel-name">Jasmine Resort</td>
+                        <td>5</td>
+                        <td class="price">1,350-1,800</td>
+                        <td class="price">6,750-9,000</td>
+                        <td>小孩免費</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3">住宿合計</td>
+                        <td>24晚</td>
+                        <td></td>
+                        <td>~33,500-42,000</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="total-summary">
+            <div class="amount">住宿總計：~33,500 - 42,000 THB</div>
+            <div class="converted">折合新台幣約 NT$29,100 - 36,500</div>
+        </div>
+    </section>
+
+    <!-- Section 2: Tickets -->
+    <section class="section" id="tickets">
+        <div class="section-header">
+            <h2>門票費用速查表</h2>
+            <p>各景點門票一目瞭然，免費景點超多</p>
+        </div>
+
+        <div class="ticket-grid">
+            <!-- Thai Elephant Home -->
+            <div class="ticket-card premium">
+                <div class="card-title"><span class="emoji">&#x1F418;</span> Thai Elephant Home</div>
+                <div class="price-row">
+                    <span class="price-label">大人</span>
+                    <span class="price-value">~1,000 THB</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">6歲兒童</span>
+                    <span class="price-value">500 THB (共乘半價)</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">2歲</span>
+                    <span class="price-value">500 THB</span>
+                </div>
+                <div class="card-note">含騎乘 + 洗象體驗</div>
+            </div>
+
+            <!-- Bua Tong Waterfall -->
+            <div class="ticket-card free">
+                <div class="card-title"><span class="emoji">&#x1F4A7;</span> 布桐黏瀑布</div>
+                <div class="price-row">
+                    <span class="price-label">全員</span>
+                    <span class="price-value free-tag">免費</span>
+                </div>
+                <div class="card-note">全球獨有黏瀑布！可徒手攀爬</div>
+            </div>
+
+            <!-- Chiang Dao Cave -->
+            <div class="ticket-card">
+                <div class="card-title"><span class="emoji">&#x1F3D4;&#xFE0F;</span> 清道洞穴嚮導</div>
+                <div class="price-row">
+                    <span class="price-label">每組</span>
+                    <span class="price-value">200 THB</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">兒童</span>
+                    <span class="price-value free-tag">含在內</span>
+                </div>
+                <div class="card-note">含煤油燈，神秘探險</div>
+            </div>
+
+            <!-- Chiang Dao Hot Spring -->
+            <div class="ticket-card">
+                <div class="card-title"><span class="emoji">&#x2668;&#xFE0F;</span> 清道溫泉</div>
+                <div class="price-row">
+                    <span class="price-label">大人</span>
+                    <span class="price-value">40-100 THB</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">6歲兒童</span>
+                    <span class="price-value">同價</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">2歲</span>
+                    <span class="price-value free-tag">免費</span>
+                </div>
+            </div>
+
+            <!-- Farm Chokchai -->
+            <div class="ticket-card">
+                <div class="card-title"><span class="emoji">&#x1F404;</span> Farm Chokchai</div>
+                <div class="price-row">
+                    <span class="price-label">大人</span>
+                    <span class="price-value">300-500 THB</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">6歲兒童</span>
+                    <span class="price-value">同價</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">2歲</span>
+                    <span class="price-value free-tag">免費</span>
+                </div>
+            </div>
+
+            <!-- Million Bats -->
+            <div class="ticket-card free">
+                <div class="card-title"><span class="emoji">&#x1F987;</span> 百萬蝙蝠</div>
+                <div class="price-row">
+                    <span class="price-label">全員</span>
+                    <span class="price-value free-tag">免費</span>
+                </div>
+                <div class="card-note">自然奇觀，傍晚觀賞</div>
+            </div>
+
+            <!-- Primo Piazza -->
+            <div class="ticket-card">
+                <div class="card-title"><span class="emoji">&#x1F999;</span> Primo Piazza</div>
+                <div class="price-row">
+                    <span class="price-label">大人</span>
+                    <span class="price-value">100-200 THB</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">6歲兒童</span>
+                    <span class="price-value">同價</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">2歲</span>
+                    <span class="price-value free-tag">免費</span>
+                </div>
+                <div class="card-note">含草泥馬互動</div>
+            </div>
+
+            <!-- Bridge on River Kwai -->
+            <div class="ticket-card free">
+                <div class="card-title"><span class="emoji">&#x1F309;</span> 桂河大橋</div>
+                <div class="price-row">
+                    <span class="price-label">全員</span>
+                    <span class="price-value free-tag">免費</span>
+                </div>
+                <div class="card-note">歷史景點，步行參觀</div>
+            </div>
+
+            <!-- Death Railway -->
+            <div class="ticket-card">
+                <div class="card-title"><span class="emoji">&#x1F682;</span> 死亡鐵路火車</div>
+                <div class="price-row">
+                    <span class="price-label">大人</span>
+                    <span class="price-value">100 THB</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">6歲兒童</span>
+                    <span class="price-value">100 THB</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">2歲</span>
+                    <span class="price-value free-tag">免費</span>
+                </div>
+                <div class="card-note">外國人不分年齡同一票價</div>
+            </div>
+
+            <!-- JEATH Museum -->
+            <div class="ticket-card">
+                <div class="card-title"><span class="emoji">&#x1F3DB;&#xFE0F;</span> JEATH 博物館</div>
+                <div class="price-row">
+                    <span class="price-label">大人</span>
+                    <span class="price-value">30 THB</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">兒童</span>
+                    <span class="price-value">&#8212;</span>
+                </div>
+                <div class="card-note">可跳過，視時間安排</div>
+            </div>
+
+            <!-- Erawan Falls -->
+            <div class="ticket-card premium">
+                <div class="card-title"><span class="emoji">&#x1F30A;</span> 伊拉旺瀑布</div>
+                <div class="price-row">
+                    <span class="price-label">大人</span>
+                    <span class="price-value">300 THB</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">6歲兒童</span>
+                    <span class="price-value">200 THB</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">2歲</span>
+                    <span class="price-value free-tag">免費</span>
+                </div>
+                <div class="card-note">含魚啃腳體驗，七層瀑布</div>
+            </div>
+
+            <!-- Amphawa -->
+            <div class="ticket-card free">
+                <div class="card-title"><span class="emoji">&#x1F6F6;</span> 安帕瓦水上市場</div>
+                <div class="price-row">
+                    <span class="price-label">全員</span>
+                    <span class="price-value free-tag">免費</span>
+                </div>
+                <div class="card-note">僅週五~日營業</div>
+            </div>
+
+            <!-- Firefly Boat -->
+            <div class="ticket-card premium">
+                <div class="card-title"><span class="emoji">&#x2728;</span> 螢火蟲包船</div>
+                <div class="price-row">
+                    <span class="price-label">包船/艘</span>
+                    <span class="price-value">700-1,500 THB</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">全家</span>
+                    <span class="price-value">一艘共乘</span>
+                </div>
+                <div class="card-note">帶幼兒建議包船，較安全</div>
+            </div>
+
+            <!-- Maeklong -->
+            <div class="ticket-card free">
+                <div class="card-title"><span class="emoji">&#x1F686;</span> 美功鐵道市場</div>
+                <div class="price-row">
+                    <span class="price-label">全員</span>
+                    <span class="price-value free-tag">免費</span>
+                </div>
+                <div class="card-note">火車穿越市場，奇特景觀</div>
+            </div>
+
+            <!-- Ayutthaya -->
+            <div class="ticket-card">
+                <div class="card-title"><span class="emoji">&#x1F3EF;</span> 大城遺跡 (2座)</div>
+                <div class="price-row">
+                    <span class="price-label">大人</span>
+                    <span class="price-value">50&times;2 = 100 THB</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">兒童</span>
+                    <span class="price-value free-tag">免費</span>
+                </div>
+            </div>
+
+            <!-- Safari World -->
+            <div class="ticket-card premium">
+                <div class="card-title"><span class="emoji">&#x1F981;</span> Safari World</div>
+                <div class="price-row">
+                    <span class="price-label">大人 (Klook)</span>
+                    <span class="price-value">~1,130 THB</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">6歲 (Klook)</span>
+                    <span class="price-value">~350 THB</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">2歲</span>
+                    <span class="price-value free-tag">免費</span>
+                </div>
+                <div class="card-note">Klook含午餐套票省30%+</div>
+            </div>
+
+            <!-- Wat Pho -->
+            <div class="ticket-card">
+                <div class="card-title"><span class="emoji">&#x1F6D5;</span> 臥佛寺</div>
+                <div class="price-row">
+                    <span class="price-label">大人</span>
+                    <span class="price-value">200-300 THB</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">兒童</span>
+                    <span class="price-value free-tag">免費</span>
+                </div>
+            </div>
+
+            <!-- Wat Arun -->
+            <div class="ticket-card">
+                <div class="card-title"><span class="emoji">&#x26E9;&#xFE0F;</span> 鄭王廟</div>
+                <div class="price-row">
+                    <span class="price-label">大人</span>
+                    <span class="price-value">100 THB</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">兒童</span>
+                    <span class="price-value free-tag">免費</span>
+                </div>
+                <div class="card-note">渡船 4 THB/人</div>
+            </div>
+
+            <!-- Orange Flag Boat -->
+            <div class="ticket-card">
+                <div class="card-title"><span class="emoji">&#x1F6A2;</span> 昭披耶河橘旗船</div>
+                <div class="price-row">
+                    <span class="price-label">大人</span>
+                    <span class="price-value">15-30 THB</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">6歲兒童</span>
+                    <span class="price-value">同價</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">2歲</span>
+                    <span class="price-value free-tag">免費</span>
+                </div>
+            </div>
+
+            <!-- Children's Discovery Museum -->
+            <div class="ticket-card free">
+                <div class="card-title"><span class="emoji">&#x1F9F8;</span> 兒童探索博物館</div>
+                <div class="price-row">
+                    <span class="price-label">全員</span>
+                    <span class="price-value free-tag">免費</span>
+                </div>
+                <div class="card-note">週一休館，請注意時間</div>
+            </div>
+
+            <!-- Thainosaur -->
+            <div class="ticket-card">
+                <div class="card-title"><span class="emoji">&#x1F995;</span> THAINOSAUR</div>
+                <div class="price-row">
+                    <span class="price-label">大人</span>
+                    <span class="price-value">200-400 THB</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">6歲兒童</span>
+                    <span class="price-value">同價</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">2歲</span>
+                    <span class="price-value free-tag">免費</span>
+                </div>
+            </div>
+
+            <!-- Thai Massage -->
+            <div class="ticket-card">
+                <div class="card-title"><span class="emoji">&#x1F486;</span> 泰式按摩</div>
+                <div class="price-row">
+                    <span class="price-label">每次</span>
+                    <span class="price-value">200-300 THB</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">兒童</span>
+                    <span class="price-value">&#8212;</span>
+                </div>
+                <div class="card-note">大人輪流享受</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Saving Tips -->
+    <section class="section" id="saving-tips">
+        <div class="section-header">
+            <h2>省錢攻略</h2>
+            <p>8大省錢秘訣，聰明旅遊不委屈</p>
+        </div>
+
+        <div class="tips-grid">
+            <div class="tip-card">
+                <div class="tip-number">1</div>
+                <div class="tip-content">
+                    <h3>Safari World Klook含午餐套票</h3>
+                    <p>比現場買便宜超多，含自助午餐不用額外花錢</p>
+                    <span class="save-badge">省 30%+</span>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">2</div>
+                <div class="tip-content">
+                    <h3>橘旗公船取代藍旗觀光船</h3>
+                    <p>同樣路線的在地公船，體驗更道地</p>
+                    <span class="save-badge">省 80%</span>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">3</div>
+                <div class="tip-content">
+                    <h3>Jasmine 官網直訂</h3>
+                    <p>飯店官網通常比 OTA 平台更便宜</p>
+                    <span class="save-badge">省 10-30%</span>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">4</div>
+                <div class="tip-content">
+                    <h3>eSIM 出發前 Klook 買</h3>
+                    <p>提前網路購買，到了自動啟用</p>
+                    <span class="save-badge">省 30-40%</span>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">5</div>
+                <div class="tip-content">
+                    <h3>住宿選含早餐方案</h3>
+                    <p>24天中有14天含早餐，省下不少外食費</p>
+                    <span class="save-badge">14天免費早餐</span>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">6</div>
+                <div class="tip-content">
+                    <h3>不去大皇宮</h3>
+                    <p>門票貴且人擠人，有小孩不方便</p>
+                    <span class="save-badge">省 1,000 THB</span>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">7</div>
+                <div class="tip-content">
+                    <h3>取消烹飪課</h3>
+                    <p>有幼兒不適合，可改為夜市美食巡禮</p>
+                    <span class="save-badge">省 1,600-3,000 THB</span>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">8</div>
+                <div class="tip-content">
+                    <h3>桂河降級 River Kwai Suite</h3>
+                    <p>同樣的桂河美景，更親民的價格</p>
+                    <span class="save-badge">省 4,000 THB</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Budget Overview -->
+    <section class="section" id="budget">
+        <div class="section-header">
+            <h2>全行程總預算概覽</h2>
+            <p>不含機票與租車，兩種方案供參考</p>
+        </div>
+
+        <div class="budget-cards">
+            <div class="budget-card save">
+                <div class="card-label">節省方案</div>
+                <div class="budget-row">
+                    <span class="budget-key">住宿 24晚</span>
+                    <span class="budget-val">~33,500 THB</span>
+                </div>
+                <div class="budget-row">
+                    <span class="budget-key">活動+餐飲+交通</span>
+                    <span class="budget-val">~47,500 THB</span>
+                </div>
+                <div class="budget-row total-row">
+                    <span class="budget-key">合計（不含機票租車）</span>
+                    <span class="budget-val">~81,000 THB</span>
+                </div>
+                <div class="ntd-val">&#8776; NT$70,500</div>
+            </div>
+
+            <div class="budget-card recommend">
+                <div class="card-label">推薦方案</div>
+                <div class="budget-row">
+                    <span class="budget-key">住宿 24晚</span>
+                    <span class="budget-val">~42,000 THB</span>
+                </div>
+                <div class="budget-row">
+                    <span class="budget-key">活動+餐飲+交通</span>
+                    <span class="budget-val">~65,000 THB</span>
+                </div>
+                <div class="budget-row total-row">
+                    <span class="budget-key">合計（不含機票租車）</span>
+                    <span class="budget-val">~107,000 THB</span>
+                </div>
+                <div class="ntd-val">&#8776; NT$93,100</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Booking Guide -->
+    <section class="section" id="booking">
+        <div class="section-header">
+            <h2>線上購票指南</h2>
+            <p>善用線上平台，省錢又方便</p>
+        </div>
+
+        <div class="booking-list">
+            <div class="booking-item">
+                <div class="platform-icon">&#x1F981;</div>
+                <div class="booking-info">
+                    <h4>Safari World</h4>
+                    <p>Klook / KKday 購買含午餐套票</p>
+                </div>
+            </div>
+
+            <div class="booking-item">
+                <div class="platform-icon">&#x1F4F1;</div>
+                <div class="booking-info">
+                    <h4>eSIM 上網卡</h4>
+                    <p>Klook 提前購買，落地即用</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="exchange-note">
+            <strong>匯率參考</strong>：1 THB &#8776; 0.87 NTD（實際匯率以出發時為準）
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p>泰國家庭旅遊 2025 &mdash; 24晚25天行程規劃</p>
+        <p style="margin-top: 0.5rem;">
+            <a href="index.html">首頁</a> &middot;
+            <a href="costs.html">費用總覽</a> &middot;
+            <a href="checklist.html">行前準備</a>
+        </p>
+    </footer>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" id="scrollTopBtn" aria-label="回到頂部" title="回到頂部">&#8593;</button>
+
+    <script>
+        // Scroll to top button
+        (function () {
+            var btn = document.getElementById('scrollTopBtn');
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 400) {
+                    btn.classList.add('visible');
+                } else {
+                    btn.classList.remove('visible');
+                }
+            });
+            btn.addEventListener('click', function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        })();
+    </script>
+</body>
+</html>

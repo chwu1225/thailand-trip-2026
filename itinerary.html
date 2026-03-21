@@ -1,0 +1,1886 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>每日行程 | 2025 泰國家庭旅遊</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Kanit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ========================================
+       Page-Specific Styles: Itinerary
+       ======================================== */
+
+    :root {
+      --gold: #D4A843;
+      --teal: #2A9D8F;
+      --deep-purple: #264653;
+      --warm-white: #F8F4E8;
+      --segment-gray: #6B7280;
+      --segment-teal: #2A9D8F;
+      --segment-green: #2D6A4F;
+      --segment-orange: #E76F51;
+      --segment-brown: #8B5E3C;
+      --segment-blue: #1D3557;
+      --segment-pink: #E9C46A;
+      --segment-red: #C1121F;
+      --segment-purple: #7B2CBF;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Kanit', sans-serif;
+      background-color: var(--warm-white);
+      color: var(--deep-purple);
+      line-height: 1.6;
+    }
+
+    /* --- Sticky Navigation --- */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--deep-purple);
+      padding: 0;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .navbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+    }
+
+    .navbar-brand {
+      font-family: 'Kanit', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-decoration: none;
+      padding: 1rem 0;
+      white-space: nowrap;
+    }
+
+    .navbar-toggle {
+      display: none;
+      background: none;
+      border: 2px solid var(--gold);
+      color: var(--gold);
+      font-size: 1.5rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .navbar-menu {
+      display: flex;
+      list-style: none;
+      gap: 0;
+    }
+
+    .navbar-menu li a {
+      display: block;
+      padding: 1rem 1.25rem;
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+
+    .navbar-menu li a:hover,
+    .navbar-menu li a:focus {
+      color: var(--gold);
+      background: rgba(212, 168, 67, 0.1);
+    }
+
+    .navbar-menu li a.active {
+      color: var(--gold);
+      border-bottom: 3px solid var(--gold);
+    }
+
+    /* --- Page Hero --- */
+    .page-hero {
+      background: linear-gradient(135deg, var(--deep-purple) 0%, #1a3a47 50%, var(--teal) 100%);
+      color: #fff;
+      text-align: center;
+      padding: 4rem 1.5rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4A843' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 1;
+    }
+
+    .page-hero h1 {
+      font-family: 'Kanit', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+
+    .page-hero p {
+      font-size: 1.15rem;
+      opacity: 0.9;
+      position: relative;
+    }
+
+    .trip-stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .trip-stat {
+      text-align: center;
+    }
+
+    .trip-stat-number {
+      display: block;
+      font-family: 'Kanit', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .trip-stat-label {
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+
+    /* --- Segment Headers --- */
+    .segment-header {
+      max-width: 900px;
+      margin: 2.5rem auto 0;
+      padding: 1.25rem 1.5rem;
+      border-radius: 12px 12px 0 0;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .segment-header h2 {
+      font-family: 'Kanit', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    .segment-header .segment-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+
+    .segment-header .segment-dates {
+      margin-left: auto;
+      font-size: 0.85rem;
+      opacity: 0.85;
+      white-space: nowrap;
+    }
+
+    .segment-gray { background: var(--segment-gray); }
+    .segment-teal { background: var(--segment-teal); }
+    .segment-green { background: var(--segment-green); }
+    .segment-orange { background: var(--segment-orange); }
+    .segment-brown { background: var(--segment-brown); }
+    .segment-blue { background: var(--segment-blue); }
+    .segment-pink { background: var(--segment-pink); color: var(--deep-purple); }
+    .segment-red { background: var(--segment-red); }
+    .segment-purple { background: var(--segment-purple); }
+
+    /* --- Day Cards --- */
+    .days-container {
+      max-width: 900px;
+      margin: 0 auto 2.5rem;
+      padding: 0;
+    }
+
+    .day-card {
+      background: #fff;
+      border-left: 5px solid var(--segment-gray);
+      margin: 0;
+      border-bottom: 1px solid #e5e7eb;
+      transition: box-shadow 0.2s;
+    }
+
+    .day-card:last-child {
+      border-radius: 0 0 12px 12px;
+      border-bottom: none;
+    }
+
+    .day-card[data-segment="gray"]   { border-left-color: var(--segment-gray); }
+    .day-card[data-segment="teal"]   { border-left-color: var(--segment-teal); }
+    .day-card[data-segment="green"]  { border-left-color: var(--segment-green); }
+    .day-card[data-segment="orange"] { border-left-color: var(--segment-orange); }
+    .day-card[data-segment="brown"]  { border-left-color: var(--segment-brown); }
+    .day-card[data-segment="blue"]   { border-left-color: var(--segment-blue); }
+    .day-card[data-segment="pink"]   { border-left-color: var(--segment-pink); }
+    .day-card[data-segment="red"]    { border-left-color: var(--segment-red); }
+    .day-card[data-segment="purple"] { border-left-color: var(--segment-purple); }
+
+    details.day-card summary {
+      padding: 1.25rem 1.5rem;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      user-select: none;
+    }
+
+    details.day-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.day-card summary::before {
+      content: '\25B6';
+      font-size: 0.7rem;
+      color: #9ca3af;
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+
+    details.day-card[open] summary::before {
+      transform: rotate(90deg);
+    }
+
+    details.day-card summary:hover {
+      background: rgba(42, 157, 143, 0.04);
+    }
+
+    details.day-card summary:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: -3px;
+    }
+
+    .day-number {
+      font-family: 'Kanit', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--deep-purple);
+      min-width: 3.5rem;
+    }
+
+    .day-date {
+      font-size: 0.9rem;
+      color: #6b7280;
+      min-width: 6.5rem;
+    }
+
+    .day-title {
+      font-family: 'Kanit', sans-serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--deep-purple);
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .location-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.2rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #fff;
+      white-space: nowrap;
+    }
+
+    .location-tag.tag-gray   { background: var(--segment-gray); }
+    .location-tag.tag-teal   { background: var(--segment-teal); }
+    .location-tag.tag-green  { background: var(--segment-green); }
+    .location-tag.tag-orange { background: var(--segment-orange); }
+    .location-tag.tag-brown  { background: var(--segment-brown); }
+    .location-tag.tag-blue   { background: var(--segment-blue); }
+    .location-tag.tag-pink   { background: var(--segment-pink); color: var(--deep-purple); }
+    .location-tag.tag-red    { background: var(--segment-red); }
+    .location-tag.tag-purple { background: var(--segment-purple); }
+
+    .cost-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: #fef3c7;
+      color: #92400e;
+      white-space: nowrap;
+    }
+
+    /* --- Day Content --- */
+    .day-content {
+      padding: 0 1.5rem 1.5rem 3.5rem;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 1.5rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.5rem;
+      bottom: 0.5rem;
+      width: 2px;
+      background: #e5e7eb;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 1rem;
+      padding-left: 1rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -1.5rem;
+      top: 0.55rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--teal);
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 2px var(--teal);
+    }
+
+    .timeline-item.highlight::before {
+      background: var(--gold);
+      box-shadow: 0 0 0 2px var(--gold);
+    }
+
+    .timeline-time {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+
+    .timeline-desc {
+      font-size: 0.95rem;
+      color: #374151;
+    }
+
+    .timeline-detail {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-top: 0.15rem;
+    }
+
+    .timeline-cost {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #92400e;
+      background: #fef3c7;
+      padding: 0.1rem 0.5rem;
+      border-radius: 4px;
+      margin-top: 0.2rem;
+    }
+
+    /* --- Callout Boxes --- */
+    .callout {
+      margin-top: 1.25rem;
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .callout-tip {
+      background: #ecfdf5;
+      border-left: 4px solid var(--teal);
+      color: #065f46;
+    }
+
+    .callout-warning {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      color: #92400e;
+    }
+
+    .callout-parent {
+      background: #ede9fe;
+      border-left: 4px solid #7c3aed;
+      color: #4c1d95;
+    }
+
+    .callout-star {
+      background: #fff7ed;
+      border-left: 4px solid var(--gold);
+      color: #78350f;
+    }
+
+    .callout strong {
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    /* --- Cost Summary --- */
+    .cost-summary {
+      margin-top: 1.25rem;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+    }
+
+    .cost-summary h4 {
+      font-family: 'Kanit', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--deep-purple);
+    }
+
+    .cost-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      padding: 0.25rem 0;
+      border-bottom: 1px dashed #e5e7eb;
+    }
+
+    .cost-row:last-child {
+      border-bottom: none;
+      font-weight: 700;
+      color: var(--deep-purple);
+      padding-top: 0.5rem;
+      margin-top: 0.25rem;
+      border-top: 2px solid var(--deep-purple);
+    }
+
+    .cost-label {
+      color: #6b7280;
+    }
+
+    .cost-value {
+      color: #374151;
+      font-weight: 600;
+    }
+
+    /* --- Footer --- */
+    .page-footer {
+      background: var(--deep-purple);
+      color: #cbd5e1;
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 0.85rem;
+    }
+
+    .page-footer a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    .page-footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* --- Expand / Collapse All Button --- */
+    .controls-bar {
+      max-width: 900px;
+      margin: 1.5rem auto 0;
+      padding: 0 0 0.5rem;
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+    }
+
+    .btn-toggle {
+      background: var(--deep-purple);
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn-toggle:hover {
+      background: var(--teal);
+    }
+
+    .btn-toggle:active {
+      transform: scale(0.97);
+    }
+
+    .btn-toggle:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    /* --- Skip Link (Accessibility) --- */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      background: var(--gold);
+      color: var(--deep-purple);
+      padding: 0.75rem 1.25rem;
+      border-radius: 0 0 8px 8px;
+      font-weight: 700;
+      z-index: 9999;
+      text-decoration: none;
+      transition: top 0.2s;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 768px) {
+      .navbar-toggle {
+        display: block;
+      }
+
+      .navbar-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--deep-purple);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      }
+
+      .navbar-menu.open {
+        display: flex;
+      }
+
+      .navbar-menu li a {
+        padding: 0.9rem 1.5rem;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+      }
+
+      .navbar-menu li a.active {
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        background: rgba(212, 168, 67, 0.12);
+      }
+
+      .page-hero {
+        padding: 3rem 1rem 2rem;
+      }
+
+      .page-hero h1 {
+        font-size: 1.8rem;
+      }
+
+      .trip-stats {
+        gap: 1.25rem;
+      }
+
+      .segment-header {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        border-radius: 10px 10px 0 0;
+        flex-wrap: wrap;
+      }
+
+      .segment-header .segment-dates {
+        margin-left: 0;
+        width: 100%;
+        margin-top: 0.25rem;
+      }
+
+      .days-container {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+      }
+
+      details.day-card summary {
+        padding: 1rem;
+        gap: 0.5rem;
+      }
+
+      .day-content {
+        padding: 0 1rem 1.25rem 1.5rem;
+      }
+
+      .day-number {
+        min-width: auto;
+        font-size: 1rem;
+      }
+
+      .day-date {
+        min-width: auto;
+        font-size: 0.8rem;
+      }
+
+      .day-title {
+        font-size: 0.95rem;
+        width: 100%;
+        order: 5;
+      }
+
+      .controls-bar {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-hero h1 {
+        font-size: 1.5rem;
+      }
+
+      .trip-stat-number {
+        font-size: 1.5rem;
+      }
+
+      .segment-header h2 {
+        font-size: 1.15rem;
+      }
+    }
+
+    /* --- Print Styles --- */
+    @media print {
+      .navbar, .controls-bar, .skip-link, .navbar-toggle {
+        display: none !important;
+      }
+
+      details.day-card {
+        break-inside: avoid;
+      }
+
+      details.day-card[open] summary ~ * {
+        display: block !important;
+      }
+
+      .day-card {
+        border: 1px solid #ccc;
+        margin-bottom: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Skip Link for Accessibility -->
+  <a href="#main-content" class="skip-link">跳至主要內容</a>
+
+  <!-- Sticky Navigation -->
+  <nav class="navbar" role="navigation" aria-label="主要導覽列">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-brand">泰國家庭旅遊 2025</a>
+      <button class="navbar-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="開啟選單">
+        &#9776;
+      </button>
+      <ul class="navbar-menu" id="nav-menu" role="menubar">
+        <li role="none"><a href="index.html" role="menuitem">首頁</a></li>
+        <li role="none"><a href="itinerary.html" role="menuitem" class="active" aria-current="page">每日行程</a></li>
+        <li role="none"><a href="accommodation.html" role="menuitem">住宿介紹</a></li>
+        <li role="none"><a href="budget.html" role="menuitem">費用總覽</a></li>
+        <li role="none"><a href="preparation.html" role="menuitem">行前準備</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <header class="page-hero">
+    <h1>每日行程</h1>
+    <p>25 天深度探索泰國，從清邁山城到曼谷都會，一路精彩不間斷</p>
+    <div class="trip-stats">
+      <div class="trip-stat">
+        <span class="trip-stat-number">25</span>
+        <span class="trip-stat-label">天</span>
+      </div>
+      <div class="trip-stat">
+        <span class="trip-stat-number">9</span>
+        <span class="trip-stat-label">個地區</span>
+      </div>
+      <div class="trip-stat">
+        <span class="trip-stat-number">8/5-8/29</span>
+        <span class="trip-stat-label">旅行日期</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main-content">
+
+    <!-- Controls -->
+    <div class="controls-bar">
+      <button class="btn-toggle" id="btn-expand" aria-label="展開所有行程">全部展開</button>
+      <button class="btn-toggle" id="btn-collapse" aria-label="收合所有行程">全部收合</button>
+    </div>
+
+    <!-- =============================================
+         SEGMENT 1: 曼谷機場 (gray)
+         ============================================= -->
+    <div class="segment-header segment-gray" role="heading" aria-level="2">
+      <span class="segment-icon" aria-hidden="true">&#9992;</span>
+      <h2>第一段：曼谷機場</h2>
+      <span class="segment-dates">8/5</span>
+    </div>
+    <div class="days-container">
+
+      <!-- Day 1 -->
+      <details class="day-card" data-segment="gray">
+        <summary>
+          <span class="day-number">Day 1</span>
+          <span class="day-date">8/5 (三)</span>
+          <span class="day-title">抵達曼谷</span>
+          <span class="location-tag tag-gray">曼谷機場</span>
+          <span class="cost-badge">低消費日</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item highlight">
+              <span class="timeline-time">抵達</span>
+              <span class="timeline-desc">VietJet 航班抵達 BKK 蘇凡納布機場</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">接駁</span>
+              <span class="timeline-desc">搭乘免費接駁車前往 BS Residence Suvarnabhumi</span>
+              <span class="timeline-detail">含早餐，設有兒童泳池，機場旁便利住宿</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">晚間</span>
+              <span class="timeline-desc">早點休息，養足精神迎接明天的旅程</span>
+            </div>
+          </div>
+          <div class="callout callout-tip">
+            <strong>小提醒</strong>
+            抵達後先在機場換少量泰銖應急，市區匯率更好。記得開通手機漫遊或購買當地 SIM 卡。
+          </div>
+          <div class="callout callout-parent">
+            <strong>親子提醒</strong>
+            長途飛行後小孩可能疲累，飯店泳池可以讓孩子放電。準備好嬰兒推車方便移動。
+          </div>
+        </div>
+      </details>
+
+    </div><!-- /days-container segment 1 -->
+
+
+    <!-- =============================================
+         SEGMENT 2: 清邁古城 (teal)
+         ============================================= -->
+    <div class="segment-header segment-teal" role="heading" aria-level="2">
+      <span class="segment-icon" aria-hidden="true">&#127963;</span>
+      <h2>第二段：清邁古城</h2>
+      <span class="segment-dates">8/6 - 8/10 | 住 SK House 2</span>
+    </div>
+    <div class="days-container">
+
+      <!-- Day 2 -->
+      <details class="day-card" data-segment="teal">
+        <summary>
+          <span class="day-number">Day 2</span>
+          <span class="day-date">8/6 (四)</span>
+          <span class="day-title">飛清邁 + 柴迪隆寺 + 塔佩門</span>
+          <span class="location-tag tag-teal">清邁古城</span>
+          <span class="cost-badge">~250-350 THB</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item highlight">
+              <span class="timeline-time">上午</span>
+              <span class="timeline-desc">VietJet 曼谷飛清邁</span>
+              <span class="timeline-detail">國內航班約 1 小時</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">抵達</span>
+              <span class="timeline-desc">機場搭雙條車或 Grab 前往古城區</span>
+              <span class="timeline-cost">~150 THB</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">入住</span>
+              <span class="timeline-desc">SK House 2（家庭房，地點評分 9.1）</span>
+            </div>
+            <div class="timeline-item highlight">
+              <span class="timeline-time">14:30</span>
+              <span class="timeline-desc">柴迪隆寺 Wat Chedi Luang</span>
+              <span class="timeline-detail">壯觀的古代佛塔遺跡，清邁最重要的寺廟之一</span>
+              <span class="timeline-cost">40-50 THB</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">16:30</span>
+              <span class="timeline-desc">塔佩門餵鴿子</span>
+              <span class="timeline-detail">清邁地標，古城東門，孩子最愛的餵鴿子體驗</span>
+              <span class="timeline-cost">飼料 20 THB/袋</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">晚餐</span>
+              <span class="timeline-desc">街邊小吃攤</span>
+              <span class="timeline-cost">30-60 THB/份</span>
+            </div>
+          </div>
+          <div class="callout callout-parent">
+            <strong>親子提醒</strong>
+            塔佩門鴿子非常溫馴，但數量很多，2 歲小孩可能會害怕，讓大人先示範餵食。
+          </div>
+        </div>
+      </details>
+
+      <!-- Day 3 -->
+      <details class="day-card" data-segment="teal">
+        <summary>
+          <span class="day-number">Day 3</span>
+          <span class="day-date">8/7 (五)</span>
+          <span class="day-title">騎大象 + 洗大象</span>
+          <span class="location-tag tag-teal">清邁</span>
+          <span class="cost-badge">~2,600-3,000 THB</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item highlight">
+              <span class="timeline-time">上午</span>
+              <span class="timeline-desc">Thai Elephant Home 大象體驗</span>
+              <span class="timeline-detail">位於 Mae Wang 區，車程約 1 小時</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">活動</span>
+              <span class="timeline-desc">2 小時體驗：餵大象 → 騎大象走叢林 → 河邊幫大象洗澡</span>
+              <span class="timeline-cost">全家 ~2,000 THB</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">交通</span>
+              <span class="timeline-desc">包車往返</span>
+              <span class="timeline-cost">600-1,000 THB</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">下午</span>
+              <span class="timeline-desc">回飯店泳池放鬆</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">晚餐</span>
+              <span class="timeline-desc">Khao Soi 清邁咖哩麵 — 必吃！</span>
+              <span class="timeline-detail">椰奶咖哩湯底配炸脆麵條，清邁代表美食</span>
+              <span class="timeline-cost">50-60 THB</span>
+            </div>
+          </div>
+          <div class="callout callout-warning">
+            <strong>注意事項</strong>
+            帶換洗衣物和防水袋！洗大象活動全身會濕透。建議穿涼鞋或水陸兩用鞋。
+          </div>
+          <div class="callout callout-parent">
+            <strong>親子提醒</strong>
+            2 歲幼兒騎大象需由大人緊抱，建議一位大人抱小孩坐象背，另一位帶 6 歲孩子。
+          </div>
+        </div>
+      </details>
+
+      <!-- Day 4 -->
+      <details class="day-card" data-segment="teal">
+        <summary>
+          <span class="day-number">Day 4</span>
+          <span class="day-date">8/8 (六)</span>
+          <span class="day-title">黏瀑布 + 週六夜市</span>
+          <span class="location-tag tag-teal">清邁</span>
+          <span class="cost-badge">~1,000-2,000 THB</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item highlight">
+              <span class="timeline-time">上午</span>
+              <span class="timeline-desc">Bua Tong 黏瀑布（Sticky Waterfall）</span>
+              <span class="timeline-detail">神奇的石灰岩瀑布，可以赤腳往上爬！獨特地質奇觀</span>
+              <span class="timeline-cost">免費入場！</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">交通</span>
+              <span class="timeline-desc">包車來回</span>
+              <span class="timeline-cost">1,000-2,000 THB</span>
+            </div>
+            <div class="timeline-item highlight">
+              <span class="timeline-time">16:00</span>
+              <span class="timeline-desc">Wua Lai 週六步行街夜市</span>
+              <span class="timeline-detail">手工藝品、街頭美食、現場表演，在地人也愛逛</span>
+            </div>
+          </div>
+          <div class="callout callout-star">
+            <strong>必玩推薦</strong>
+            黏瀑布是泰北最獨特的自然景觀！石灰岩表面有天然止滑效果，赤腳踩上去不會滑，6 歲孩子可以自己爬，非常好玩。
+          </div>
+          <div class="callout callout-parent">
+            <strong>親子提醒</strong>
+            2 歲幼兒建議大人抱著在瀑布下層玩水即可，不要爬太高。帶防水手機殼拍照。
+          </div>
+        </div>
+      </details>
+
+      <!-- Day 5 -->
+      <details class="day-card" data-segment="teal">
+        <summary>
+          <span class="day-number">Day 5</span>
+          <span class="day-date">8/9 (日)</span>
+          <span class="day-title">公園 + 按摩 + 週日步行街</span>
+          <span class="location-tag tag-teal">清邁</span>
+          <span class="cost-badge">~200-300 THB</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item highlight">
+              <span class="timeline-time">09:00</span>
+              <span class="timeline-desc">Nong Buak Hard 公園</span>
+              <span class="timeline-detail">古城西南角的城市綠洲：遊樂場、踩天鵝船、餵鵝鴨</span>
+              <span class="timeline-cost">免費！</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">下午</span>
+              <span class="timeline-desc">泰式按摩</span>
+              <span class="timeline-detail">清邁按摩物美價廉，趁小孩午睡時享受</span>
+              <span class="timeline-cost">200-300 THB</span>
+            </div>
+            <div class="timeline-item highlight">
+              <span class="timeline-time">16:00</span>
+              <span class="timeline-desc">週日步行街（塔佩門延伸）</span>
+              <span class="timeline-detail">清邁最大規模夜市，從塔佩門一路延伸到古城中心</span>
+            </div>
+          </div>
+          <div class="callout callout-tip">
+            <strong>小提醒</strong>
+            週日步行街建議 18:30 前離開，之後人潮會非常擁擠，帶小孩行動不便。
+          </div>
+        </div>
+      </details>
+
+      <!-- Day 6 -->
+      <details class="day-card" data-segment="teal">
+        <summary>
+          <span class="day-number">Day 6</span>
+          <span class="day-date">8/10 (一)</span>
+          <span class="day-title">瓦洛洛市場 + 清邁最後一天</span>
+          <span class="location-tag tag-teal">清邁</span>
+          <span class="cost-badge">低消費日</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item highlight">
+              <span class="timeline-time">上午</span>
+              <span class="timeline-desc">瓦洛洛市場 Warorot Market</span>
+              <span class="timeline-detail">清邁最大傳統市場，買伴手禮的好地方：果乾、香料、手工皂</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">移動</span>
+              <span class="timeline-desc">搭紅色雙條車環城體驗</span>
+              <span class="timeline-detail">清邁特色交通工具，隨招隨停</span>
+              <span class="timeline-cost">30 THB/人</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">下午</span>
+              <span class="timeline-desc">泳池放鬆，打包行李</span>
+            </div>
+          </div>
+          <div class="callout callout-tip">
+            <strong>小提醒</strong>
+            瓦洛洛市場的芒果乾、椰子片、泰式奶茶粉是最受歡迎的伴手禮，比觀光區便宜許多。
+          </div>
+        </div>
+      </details>
+
+    </div><!-- /days-container segment 2 -->
+
+
+    <!-- =============================================
+         SEGMENT 3: 清道 (green)
+         ============================================= -->
+    <div class="segment-header segment-green" role="heading" aria-level="2">
+      <span class="segment-icon" aria-hidden="true">&#127956;</span>
+      <h2>第三段：清道 &#11088; 特色體驗</h2>
+      <span class="segment-dates">8/11 - 8/13 | 住 Chiang Dao Nest 2</span>
+    </div>
+    <div class="days-container">
+
+      <!-- Day 7 -->
+      <details class="day-card" data-segment="green">
+        <summary>
+          <span class="day-number">Day 7</span>
+          <span class="day-date">8/11 (二)</span>
+          <span class="day-title">清邁 → 清道</span>
+          <span class="location-tag tag-green">清道</span>
+          <span class="cost-badge">租車日</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item highlight">
+              <span class="timeline-time">上午</span>
+              <span class="timeline-desc">租車自駕前往清道</span>
+              <span class="timeline-detail">車程約 1.5 小時，沿途盡是壯闊稻田與山巒風光</span>
+            </div>
+            <div class="timeline-item highlight">
+              <span class="timeline-time">中午</span>
+              <span class="timeline-desc">入住 Chiang Dao Nest 2</span>
+              <span class="timeline-detail">群山環繞的世外桃源，餐廳被譽為「泰國最好吃的泰菜」，庭園優美</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">下午</span>
+              <span class="timeline-desc">探索園區，享受山間寧靜</span>
+            </div>
+          </div>
+          <div class="callout callout-star">
+            <strong>必住推薦</strong>
+            Chiang Dao Nest 是此行最特別的住宿之一！隱身山林間的小木屋，餐廳食物水準極高，價格卻非常親民。建議在餐廳多吃幾餐。
+          </div>
+        </div>
+      </details>
+
+      <!-- Day 8 -->
+      <details class="day-card" data-segment="green">
+        <summary>
+          <span class="day-number">Day 8</span>
+          <span class="day-date">8/12 (三)</span>
+          <span class="day-title">清道洞穴 + 溫泉</span>
+          <span class="location-tag tag-green">清道</span>
+          <span class="cost-badge">~340 THB 超省！</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item highlight">
+              <span class="timeline-time">上午</span>
+              <span class="timeline-desc">清道洞穴 Chiang Dao Cave</span>
+              <span class="timeline-detail">嚮導手持煤油燈帶領深入洞穴探險，壯觀的鐘乳石和石筍</span>
+              <span class="timeline-cost">嚮導費 200 THB/組</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">下午</span>
+              <span class="timeline-desc">清道溫泉</span>
+              <span class="timeline-detail">天然溫泉泡腳放鬆，水溫適中適合全家</span>
+              <span class="timeline-cost">40-100 THB</span>
+            </div>
+          </div>
+          <div class="callout callout-star">
+            <strong>超省錢日！</strong>
+            今天是整趟旅行花費最少的一天，洞穴探險和溫泉加起來不到 350 泰銖，卻是最難忘的體驗之一。
+          </div>
+          <div class="callout callout-parent">
+            <strong>親子提醒</strong>
+            洞穴內昏暗，2 歲小孩可能害怕，建議大人抱著。6 歲孩子會覺得煤油燈探險超酷！
+          </div>
+        </div>
+      </details>
+
+      <!-- Day 9 -->
+      <details class="day-card" data-segment="green">
+        <summary>
+          <span class="day-number">Day 9</span>
+          <span class="day-date">8/13 (四)</span>
+          <span class="day-title">山寺 + 泳池日</span>
+          <span class="location-tag tag-green">清道</span>
+          <span class="cost-badge">免費！</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item highlight">
+              <span class="timeline-time">上午</span>
+              <span class="timeline-desc">Wat Tham Pha Plong 山頂寺廟</span>
+              <span class="timeline-detail">500 階石梯通往山頂，叢林中的靜謐佛寺，視野遼闊</span>
+              <span class="timeline-cost">免費</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">下午</span>
+              <span class="timeline-desc">Nest 1 泳池悠閒游泳</span>
+            </div>
+          </div>
+          <div class="callout callout-parent">
+            <strong>親子提醒：建議分頭行動</strong>
+            500 階石梯對 2 歲幼兒太吃力。建議一位大人帶 6 歲孩子爬山（約 30-40 分鐘），另一位大人帶 2 歲孩子在 Nest 園區玩耍或泳池游泳。
+          </div>
+        </div>
+      </details>
+
+    </div><!-- /days-container segment 3 -->
+
+
+    <!-- =============================================
+         SEGMENT 4: 考艾 (orange)
+         ============================================= -->
+    <div class="segment-header segment-orange" role="heading" aria-level="2">
+      <span class="segment-icon" aria-hidden="true">&#127811;</span>
+      <h2>第四段：考艾 &#11088; 特色體驗</h2>
+      <span class="segment-dates">8/14 - 8/17 | 住 Watermill Resort</span>
+    </div>
+    <div class="days-container">
+
+      <!-- Day 10 -->
+      <details class="day-card" data-segment="orange">
+        <summary>
+          <span class="day-number">Day 10</span>
+          <span class="day-date">8/14 (五)</span>
+          <span class="day-title">交通日：清道 → 清邁 → 曼谷 → 考艾</span>
+          <span class="location-tag tag-orange">考艾</span>
+          <span class="cost-badge">交通日</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item">
+              <span class="timeline-time">上午</span>
+              <span class="timeline-desc">開車返回清邁機場</span>
+            </div>
+            <div class="timeline-item highlight">
+              <span class="timeline-time">中午</span>
+              <span class="timeline-desc">VietJet 清邁（CNX）→ 曼谷廊曼（DMK）</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">下午</span>
+              <span class="timeline-desc">DMK 機場租車，開往考艾</span>
+              <span class="timeline-detail">車程 2-3 小時</span>
+            </div>
+            <div class="timeline-item highlight">
+              <span class="timeline-time">傍晚</span>
+              <span class="timeline-desc">入住 Watermill Resort</span>
+              <span class="timeline-detail">夢幻度假村：小溪、天鵝、鵝、鸚鵡、魚池、腳踏車、划船</span>
+            </div>
+          </div>
+          <div class="callout callout-warning">
+            <strong>注意事項</strong>
+            今天是長途交通日，準備充足零食和車上娛樂給小孩。建議提早出發，避免太晚抵達。
+          </div>
+        </div>
+      </details>
+
+      <!-- Day 11 -->
+      <details class="day-card" data-segment="orange">
+        <summary>
+          <span class="day-number">Day 11</span>
+          <span class="day-date">8/15 (六)</span>
+          <span class="day-title">農場 + 度假村 + 百萬蝙蝠</span>
+          <span class="location-tag tag-orange">考艾</span>
+          <span class="cost-badge">~600-1,000 THB</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item highlight">
+              <span class="timeline-time">上午</span>
+              <span class="timeline-desc">Farm Chokchai 農場體驗</span>
+              <span class="timeline-detail">牛仔秀、餵小牛、擠牛奶、新鮮冰淇淋</span>
+              <span class="timeline-cost">300-500 THB/人</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">下午</span>
+              <span class="timeline-desc">回 Watermill 度假村玩水</span>
+              <span class="timeline-detail">小溪戲水、騎腳踏車、餵天鵝和鸚鵡</span>
+            </div>
+            <div class="timeline-item highlight">
+              <span class="timeline-time">17:30</span>
+              <span class="timeline-desc">蝙蝠洞：200 萬隻蝙蝠出洞奇觀</span>
+              <span class="timeline-detail">傍晚時分，超過 200 萬隻蝙蝠如黑色巨龍般從洞口湧出，壯觀至極！</span>
+              <span class="timeline-cost">免費！</span>
+            </div>
+          </div>
+          <div class="callout callout-star">
+            <strong>必看推薦</strong>
+            蝙蝠出洞是考艾最震撼的自然奇觀，完全免費！建議 17:00 就到場卡位，蝙蝠群出洞持續約 30 分鐘。
+          </div>
+        </div>
+      </details>
+
+      <!-- Day 12 -->
+      <details class="day-card" data-segment="orange">
+        <summary>
+          <span class="day-number">Day 12</span>
+          <span class="day-date">8/16 (日)</span>
+          <span class="day-title">Primo Piazza + 度假村</span>
+          <span class="location-tag tag-orange">考艾</span>
+          <span class="cost-badge">~100-200 THB</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item highlight">
+              <span class="timeline-time">上午</span>
+              <span class="timeline-desc">Primo Piazza 義大利風小鎮</span>
+              <span class="timeline-detail">歐式建築街景拍照、餵草泥馬（羊駝）、小型動物園</span>
+              <span class="timeline-cost">100-200 THB</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">下午</span>
+              <span class="timeline-desc">回 Watermill 度假村享受設施</span>
+              <span class="timeline-detail">小溪玩水、騎腳踏車、餵天鵝、划船</span>
+            </div>
+          </div>
+          <div class="callout callout-parent">
+            <strong>親子提醒</strong>
+            Primo Piazza 的草泥馬非常溫馴，小朋友可以近距離接觸餵食。園區不大，1-2 小時即可逛完。
+          </div>
+        </div>
+      </details>
+
+      <!-- Day 13 -->
+      <details class="day-card" data-segment="orange">
+        <summary>
+          <span class="day-number">Day 13</span>
+          <span class="day-date">8/17 (一)</span>
+          <span class="day-title">度假村放鬆日</span>
+          <span class="location-tag tag-orange">考艾</span>
+          <span class="cost-badge">零消費日</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item">
+              <span class="timeline-time">全天</span>
+              <span class="timeline-desc">在 Watermill Resort 盡情享受</span>
+              <span class="timeline-detail">溪流戲水、騎腳踏車探索園區、餵動物、划船、發呆放空</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">傍晚</span>
+              <span class="timeline-desc">打包行李，準備明天前往北碧</span>
+            </div>
+          </div>
+          <div class="callout callout-tip">
+            <strong>小提醒</strong>
+            放鬆日是長途旅行中很重要的節奏調整，不要覺得「浪費」。孩子和大人都需要充電的時間。
+          </div>
+        </div>
+      </details>
+
+    </div><!-- /days-container segment 4 -->
+
+
+    <!-- =============================================
+         SEGMENT 5: 北碧 (brown)
+         ============================================= -->
+    <div class="segment-header segment-brown" role="heading" aria-level="2">
+      <span class="segment-icon" aria-hidden="true">&#128681;</span>
+      <h2>第五段：北碧</h2>
+      <span class="segment-dates">8/18 - 8/19 | 住 Mittapan Hotel</span>
+    </div>
+    <div class="days-container">
+
+      <!-- Day 14 -->
+      <details class="day-card" data-segment="brown">
+        <summary>
+          <span class="day-number">Day 14</span>
+          <span class="day-date">8/18 (二)</span>
+          <span class="day-title">考艾 → 北碧 + 桂河大橋</span>
+          <span class="location-tag tag-brown">北碧</span>
+          <span class="cost-badge">交通日</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item">
+              <span class="timeline-time">上午</span>
+              <span class="timeline-desc">從考艾開車前往北碧</span>
+              <span class="timeline-detail">車程 4-5 小時，建議多準備零食和休息站停靠</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">下午</span>
+              <span class="timeline-desc">入住 Mittapan Hotel</span>
+              <span class="timeline-detail">含早餐，評分 8.5，3 張單人床配置</span>
+            </div>
+            <div class="timeline-item highlight">
+              <span class="timeline-time">傍晚</span>
+              <span class="timeline-desc">步行至桂河大橋 Bridge over the River Kwai</span>
+              <span class="timeline-detail">二戰歷史名橋，可步行在鐵軌橋面上</span>
+              <span class="timeline-cost">免費</span>
+            </div>
+          </div>
+          <div class="callout callout-warning">
+            <strong>注意事項</strong>
+            長途開車日，建議帶充足零食和飲水。中途可在 Nakhon Pathom 休息。桂河大橋上行走時請牢牽孩子的手。
+          </div>
+        </div>
+      </details>
+
+      <!-- Day 15 -->
+      <details class="day-card" data-segment="brown">
+        <summary>
+          <span class="day-number">Day 15</span>
+          <span class="day-date">8/19 (三)</span>
+          <span class="day-title">死亡鐵路 + 地獄火隘口</span>
+          <span class="location-tag tag-brown">北碧</span>
+          <span class="cost-badge">~2,200-3,200 THB</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item">
+              <span class="timeline-time">上午</span>
+              <span class="timeline-desc">包車出發一日遊</span>
+              <span class="timeline-cost">包車 2,000-3,000 THB</span>
+            </div>
+            <div class="timeline-item highlight">
+              <span class="timeline-time">上午</span>
+              <span class="timeline-desc">地獄火隘口紀念館 Hellfire Pass</span>
+              <span class="timeline-detail">二戰期間戰俘開鑿的隘口，保存完整的歷史遺跡</span>
+              <span class="timeline-cost">免費</span>
+            </div>
+            <div class="timeline-item highlight">
+              <span class="timeline-time">下午</span>
+              <span class="timeline-desc">死亡鐵路火車體驗</span>
+              <span class="timeline-detail">Tham Krasae 段：火車沿懸崖行駛在木造棧橋上，壯觀絕美的河谷風光</span>
+              <span class="timeline-cost">100 THB/人</span>
+            </div>
+          </div>
+          <div class="callout callout-star">
+            <strong>必搭推薦</strong>
+            Tham Krasae 懸崖木橋段是死亡鐵路最精華的路段，火車緩慢行駛在峭壁旁的木造棧橋上，一邊是懸崖一邊是河谷，壯觀程度令人屏息。
+          </div>
+          <div class="callout callout-parent">
+            <strong>親子提醒</strong>
+            地獄火隘口的歷史較沉重，適合跟 6 歲孩子簡單說明。2 歲幼兒不會有感覺但路況較崎嶇，建議背帶。
+          </div>
+        </div>
+      </details>
+
+    </div><!-- /days-container segment 5 -->
+
+
+    <!-- =============================================
+         SEGMENT 6: 桂河 (blue)
+         ============================================= -->
+    <div class="segment-header segment-blue" role="heading" aria-level="2">
+      <span class="segment-icon" aria-hidden="true">&#127946;</span>
+      <h2>第六段：桂河 &#11088; 特色體驗</h2>
+      <span class="segment-dates">8/20 - 8/21 | 住 Boutique Raft Resort</span>
+    </div>
+    <div class="days-container">
+
+      <!-- Day 16 -->
+      <details class="day-card" data-segment="blue">
+        <summary>
+          <span class="day-number">Day 16</span>
+          <span class="day-date">8/20 (四)</span>
+          <span class="day-title">入住水上木屋</span>
+          <span class="location-tag tag-blue">桂河</span>
+          <span class="cost-badge">~3,000 THB/晚</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item highlight">
+              <span class="timeline-time">上午</span>
+              <span class="timeline-desc">搭乘長尾船前往漂浮度假村</span>
+              <span class="timeline-detail">從碼頭搭船進入，本身就是一場冒險！</span>
+            </div>
+            <div class="timeline-item highlight">
+              <span class="timeline-time">中午</span>
+              <span class="timeline-desc">入住 Boutique Raft Resort - River Kwai Suite</span>
+              <span class="timeline-detail">水上木屋，1 張大床 + 1 張單人床 + 加床，~3,000 THB/晚</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">下午</span>
+              <span class="timeline-desc">河中泳池游泳、跳河玩水</span>
+              <span class="timeline-detail">度假村有河中泳池，也可以直接跳入桂河游泳</span>
+            </div>
+          </div>
+          <div class="callout callout-star">
+            <strong>必住推薦</strong>
+            在河上的漂浮木屋住一晚，是此行最獨特的體驗！晚上躺在床上聽河水聲入睡，清晨被鳥鳴喚醒。
+          </div>
+          <div class="callout callout-warning">
+            <strong>注意事項</strong>
+            度假村僅含早餐，午晚餐需另外點餐。建議帶一些零食備用。手機訊號可能不穩，享受難得的「斷網」體驗。
+          </div>
+          <div class="callout callout-parent">
+            <strong>親子提醒</strong>
+            水上木屋四周是河水，務必看好小孩！建議帶幼兒泳圈。跳河活動僅適合會游泳的大人和大孩子。
+          </div>
+        </div>
+      </details>
+
+      <!-- Day 17 -->
+      <details class="day-card" data-segment="blue">
+        <summary>
+          <span class="day-number">Day 17</span>
+          <span class="day-date">8/21 (五)</span>
+          <span class="day-title">伊拉旺七層瀑布</span>
+          <span class="location-tag tag-blue">桂河</span>
+          <span class="cost-badge">~500-800 THB</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item highlight">
+              <span class="timeline-time">上午</span>
+              <span class="timeline-desc">Erawan Falls 伊拉旺國家公園</span>
+              <span class="timeline-detail">翡翠綠的七層瀑布，第 1-3 層適合全家同遊，可在天然池中游泳</span>
+              <span class="timeline-cost">大人 300 THB / 兒童 200 THB（2 歲免費）</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">體驗</span>
+              <span class="timeline-desc">魚啃腳體驗（天然魚療 Spa）</span>
+              <span class="timeline-detail">把腳泡在溪水中，小魚會來啃食腳上角質，癢癢的很有趣</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">下午</span>
+              <span class="timeline-desc">竹筏漂流或獨木舟（自選）</span>
+            </div>
+          </div>
+          <div class="callout callout-star">
+            <strong>必玩推薦</strong>
+            伊拉旺瀑布的翡翠綠池水清澈見底，是泰國最美的瀑布。第 1-2 層最適合帶小孩游泳，水深適中且有沙灘。
+          </div>
+          <div class="callout callout-parent">
+            <strong>親子提醒</strong>
+            石頭可能濕滑，建議穿防滑水鞋。帶防水袋保護手機和證件。第 4 層以上需攀爬，不適合帶幼兒。
+          </div>
+        </div>
+      </details>
+
+    </div><!-- /days-container segment 6 -->
+
+
+    <!-- =============================================
+         SEGMENT 7: 安帕瓦 (pink/gold)
+         ============================================= -->
+    <div class="segment-header segment-pink" role="heading" aria-level="2">
+      <span class="segment-icon" aria-hidden="true">&#128674;</span>
+      <h2>第七段：安帕瓦</h2>
+      <span class="segment-dates">8/22 | 住 Bansuwan Homestay</span>
+    </div>
+    <div class="days-container">
+
+      <!-- Day 18 -->
+      <details class="day-card" data-segment="pink">
+        <summary>
+          <span class="day-number">Day 18</span>
+          <span class="day-date">8/22 (六)</span>
+          <span class="day-title">水上市場 + 螢火蟲船</span>
+          <span class="location-tag tag-pink">安帕瓦</span>
+          <span class="cost-badge">~700-1,500 THB</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item">
+              <span class="timeline-time">上午</span>
+              <span class="timeline-desc">從桂河開車前往安帕瓦</span>
+              <span class="timeline-detail">車程約 2.5-3 小時</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">中午</span>
+              <span class="timeline-desc">入住班桑灣民宿 Bansuwan Homestay</span>
+              <span class="timeline-detail">含早餐，Booking.com 評分高達 9.7！河畔民宿氛圍極佳</span>
+            </div>
+            <div class="timeline-item highlight">
+              <span class="timeline-time">16:00</span>
+              <span class="timeline-desc">安帕瓦水上市場</span>
+              <span class="timeline-detail">船上料理、河邊美食，最道地的水上市場體驗（僅週五至週日營業）</span>
+            </div>
+            <div class="timeline-item highlight">
+              <span class="timeline-time">19:00</span>
+              <span class="timeline-desc">螢火蟲包船夜遊</span>
+              <span class="timeline-detail">河道兩旁樹上螢火蟲閃爍如聖誕燈飾，夢幻至極</span>
+              <span class="timeline-cost">包船 700-1,500 THB</span>
+            </div>
+          </div>
+          <div class="callout callout-star">
+            <strong>必看推薦</strong>
+            螢火蟲夜遊是此行最浪漫的體驗！成千上萬的螢火蟲棲息在河道兩旁的樹上，一閃一閃如同聖誕燈海。建議包整艘船（可坐 6-8 人），自己家人慢慢欣賞。
+          </div>
+          <div class="callout callout-parent">
+            <strong>親子提醒</strong>
+            螢火蟲船行程約 1 小時，2 歲幼兒可能在船上睡著（河風涼爽），帶件薄外套。
+          </div>
+        </div>
+      </details>
+
+    </div><!-- /days-container segment 7 -->
+
+
+    <!-- =============================================
+         SEGMENT 8: 大城 (red)
+         ============================================= -->
+    <div class="segment-header segment-red" role="heading" aria-level="2">
+      <span class="segment-icon" aria-hidden="true">&#127983;</span>
+      <h2>第八段：大城</h2>
+      <span class="segment-dates">8/23 | 住 Auntie House985</span>
+    </div>
+    <div class="days-container">
+
+      <!-- Day 19 -->
+      <details class="day-card" data-segment="red">
+        <summary>
+          <span class="day-number">Day 19</span>
+          <span class="day-date">8/23 (日)</span>
+          <span class="day-title">僧侶化緣 + 美功市場 + 大城遺跡</span>
+          <span class="location-tag tag-red">大城</span>
+          <span class="cost-badge">~600 THB</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item highlight">
+              <span class="timeline-time">06:00</span>
+              <span class="timeline-desc">安帕瓦清晨僧侶划船化緣</span>
+              <span class="timeline-detail">僧侶划著小船沿河接受布施，安帕瓦獨有的晨間風景</span>
+            </div>
+            <div class="timeline-item highlight">
+              <span class="timeline-time">08:30</span>
+              <span class="timeline-desc">美功鐵道市場 Maeklong Railway Market</span>
+              <span class="timeline-detail">火車穿越市場！攤販在火車通過時迅速收攤，通過後又展開，世界奇觀</span>
+              <span class="timeline-cost">免費</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">中午</span>
+              <span class="timeline-desc">開車約 3 小時前往大城</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">抵達</span>
+              <span class="timeline-desc">入住 Auntie House985</span>
+              <span class="timeline-detail">含早餐，評分 9.2！僅 500 THB/晚，CP 值爆表</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">午餐</span>
+              <span class="timeline-desc">大城船麵 Boat Noodles</span>
+              <span class="timeline-detail">一碗只要 10 THB！小小一碗，可以吃 10 碗以上，超有趣的用餐體驗</span>
+              <span class="timeline-cost">~100-150 THB（10-15碗）</span>
+            </div>
+            <div class="timeline-item highlight">
+              <span class="timeline-time">15:00</span>
+              <span class="timeline-desc">Wat Mahathat 瑪哈泰寺</span>
+              <span class="timeline-detail">著名的樹根纏佛頭，大城最具代表性的遺跡</span>
+              <span class="timeline-cost">50 THB</span>
+            </div>
+            <div class="timeline-item highlight">
+              <span class="timeline-time">16:30</span>
+              <span class="timeline-desc">Wat Chaiwatthanaram 柴瓦塔那蘭寺</span>
+              <span class="timeline-detail">河畔壯觀寺廟群，日落時分景色最美</span>
+              <span class="timeline-cost">50 THB</span>
+            </div>
+          </div>
+          <div class="callout callout-star">
+            <strong>行程最豐富的一天！</strong>
+            今天從清晨到傍晚安排了 5 個精彩景點，每一個都值得專程造訪。建議早起才能看到 6 點的僧侶化緣。
+          </div>
+          <div class="callout callout-warning">
+            <strong>注意事項</strong>
+            美功市場火車時刻表可能變動，建議先上網確認。拍照時務必注意安全，不要太靠近鐵軌。
+          </div>
+          <div class="callout callout-parent">
+            <strong>親子提醒</strong>
+            大城寺廟區很曬，帶足防曬和飲水。船麵體驗小朋友也會覺得很有趣，可以自己數吃了幾碗。
+          </div>
+        </div>
+      </details>
+
+    </div><!-- /days-container segment 8 -->
+
+
+    <!-- =============================================
+         SEGMENT 9: 曼谷 (purple)
+         ============================================= -->
+    <div class="segment-header segment-purple" role="heading" aria-level="2">
+      <span class="segment-icon" aria-hidden="true">&#127961;</span>
+      <h2>第九段：曼谷</h2>
+      <span class="segment-dates">8/24 - 8/29 | 住 Jasmine Resort</span>
+    </div>
+    <div class="days-container">
+
+      <!-- Day 20 -->
+      <details class="day-card" data-segment="purple">
+        <summary>
+          <span class="day-number">Day 20</span>
+          <span class="day-date">8/24 (一)</span>
+          <span class="day-title">大城 → 曼谷 + ICONSIAM</span>
+          <span class="location-tag tag-purple">曼谷</span>
+          <span class="cost-badge">低消費日</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item">
+              <span class="timeline-time">上午</span>
+              <span class="timeline-desc">從大城開車至曼谷，還車</span>
+              <span class="timeline-detail">車程約 1.5 小時</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">中午</span>
+              <span class="timeline-desc">入住 Jasmine Resort</span>
+              <span class="timeline-detail">官網訂房 9 折，2 張 King 大床，會員方案小孩免費早餐</span>
+            </div>
+            <div class="timeline-item highlight">
+              <span class="timeline-time">下午</span>
+              <span class="timeline-desc">ICONSIAM SookSiam 室內水上市場</span>
+              <span class="timeline-detail">百貨公司裡的水上市場！有冷氣、有表演、有各地小吃，完美躲避午後大雨</span>
+              <span class="timeline-cost">免費入場</span>
+            </div>
+          </div>
+          <div class="callout callout-tip">
+            <strong>小提醒</strong>
+            ICONSIAM 的 SookSiam 位於 G 樓層，集結了全泰國 77 府的特色美食和工藝品，是認識泰國文化的好地方。冷氣很舒服！
+          </div>
+        </div>
+      </details>
+
+      <!-- Day 21 -->
+      <details class="day-card" data-segment="purple">
+        <summary>
+          <span class="day-number">Day 21</span>
+          <span class="day-date">8/25 (二)</span>
+          <span class="day-title">Safari World 野生動物園</span>
+          <span class="location-tag tag-purple">曼谷</span>
+          <span class="cost-badge">Klook 優惠</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item highlight">
+              <span class="timeline-time">上午</span>
+              <span class="timeline-desc">Safari Park 野生動物園區</span>
+              <span class="timeline-detail">開車穿越園區，近距離觀看獅子、長頸鹿、斑馬、犀牛</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">互動</span>
+              <span class="timeline-desc">餵長頸鹿體驗</span>
+              <span class="timeline-detail">長頸鹿會把頭伸進車窗吃東西！</span>
+            </div>
+            <div class="timeline-item highlight">
+              <span class="timeline-time">下午</span>
+              <span class="timeline-desc">Marine Park 海洋公園區</span>
+              <span class="timeline-detail">海豚秀、海獅秀、鳥類表演，精彩的動物表演節目</span>
+            </div>
+          </div>
+          <div class="callout callout-tip">
+            <strong>省錢秘訣</strong>
+            在 Klook 平台購買含午餐套票可省 30%！園內禁止攜帶外食，所以含餐套票非常划算。2 歲幼兒免費入園。
+          </div>
+          <div class="callout callout-parent">
+            <strong>親子提醒</strong>
+            Safari Park 需要自駕車或搭園內巴士，建議自駕可以自由停留拍照。長頸鹿餵食是孩子最愛的環節！
+          </div>
+        </div>
+      </details>
+
+      <!-- Day 22 -->
+      <details class="day-card" data-segment="purple">
+        <summary>
+          <span class="day-number">Day 22</span>
+          <span class="day-date">8/26 (三)</span>
+          <span class="day-title">臥佛寺 + 鄭王廟 + 昭披耶河</span>
+          <span class="location-tag tag-purple">曼谷</span>
+          <span class="cost-badge">~450-650 THB</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item highlight">
+              <span class="timeline-time">上午</span>
+              <span class="timeline-desc">臥佛寺 Wat Pho</span>
+              <span class="timeline-detail">46 公尺長的金色臥佛，全身貼滿金箔，腳底刻有 108 個吉祥圖案</span>
+              <span class="timeline-cost">200-300 THB</span>
+            </div>
+            <div class="timeline-item highlight">
+              <span class="timeline-time">中午</span>
+              <span class="timeline-desc">搭渡船前往鄭王廟 Wat Arun</span>
+              <span class="timeline-detail">橫渡昭披耶河只要幾分鐘，黎明寺的陡峭階梯和彩瓷裝飾令人驚嘆</span>
+              <span class="timeline-cost">渡船 4 THB！</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">下午</span>
+              <span class="timeline-desc">搭橘旗公船遊昭披耶河</span>
+              <span class="timeline-detail">便宜又道地的交通方式，沿途欣賞河畔景色</span>
+              <span class="timeline-cost">15-30 THB</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">傍晚</span>
+              <span class="timeline-desc">泰式按摩</span>
+              <span class="timeline-detail">臥佛寺是泰式按摩的發源地，附近按摩店物美價廉</span>
+              <span class="timeline-cost">200-300 THB</span>
+            </div>
+          </div>
+          <div class="callout callout-tip">
+            <strong>小提醒</strong>
+            進入寺廟需穿著過膝服裝，肩膀不可外露。門口可借沙龍（免費或少許租金）。記得脫鞋。
+          </div>
+          <div class="callout callout-parent">
+            <strong>親子提醒</strong>
+            鄭王廟的階梯非常陡峭，帶 2 歲幼兒不建議攀爬主塔，在下方拍照即可。6 歲可以嘗試但需大人陪同。
+          </div>
+        </div>
+      </details>
+
+      <!-- Day 23 -->
+      <details class="day-card" data-segment="purple">
+        <summary>
+          <span class="day-number">Day 23</span>
+          <span class="day-date">8/27 (四)</span>
+          <span class="day-title">兒童博物館 + 恐龍博物館 + 嘟嘟車</span>
+          <span class="location-tag tag-purple">曼谷</span>
+          <span class="cost-badge">~200-400 THB</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item highlight">
+              <span class="timeline-time">10:00</span>
+              <span class="timeline-desc">兒童探索博物館 Children's Discovery Museum</span>
+              <span class="timeline-detail">免費入場！挖恐龍骨化石、戲水池、科學實驗區、建築積木區</span>
+              <span class="timeline-cost">免費！</span>
+            </div>
+            <div class="timeline-item highlight">
+              <span class="timeline-time">17:00</span>
+              <span class="timeline-desc">Asiatique 河濱碼頭夜市</span>
+              <span class="timeline-detail">河畔大型夜市，有摩天輪、餐廳、表演和購物</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">夜市內</span>
+              <span class="timeline-desc">THAINOSAUR 恐龍博物館</span>
+              <span class="timeline-detail">互動式恐龍展覽，小恐龍迷的天堂</span>
+              <span class="timeline-cost">200-400 THB</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">體驗</span>
+              <span class="timeline-desc">搭嘟嘟車 Tuk-Tuk</span>
+              <span class="timeline-detail">來泰國必搭！三輪摩托車穿梭大街小巷</span>
+            </div>
+          </div>
+          <div class="callout callout-star">
+            <strong>孩子最愛的一天！</strong>
+            兒童探索博物館完全免費且超好玩，挖恐龍化石和戲水池可以玩整個上午。晚上再去看恐龍展覽，恐龍主題雙重滿足！
+          </div>
+          <div class="callout callout-parent">
+            <strong>親子提醒</strong>
+            兒童博物館的戲水池建議帶換洗衣物。嘟嘟車沒有安全帶，大人要緊抱幼兒，短程體驗即可。
+          </div>
+        </div>
+      </details>
+
+      <!-- Day 24 -->
+      <details class="day-card" data-segment="purple">
+        <summary>
+          <span class="day-number">Day 24</span>
+          <span class="day-date">8/28 (五)</span>
+          <span class="day-title">採購 + 歡送晚餐</span>
+          <span class="location-tag tag-purple">曼谷</span>
+          <span class="cost-badge">採購日</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item highlight">
+              <span class="timeline-time">上午</span>
+              <span class="timeline-desc">Big C 超市掃伴手禮</span>
+              <span class="timeline-detail">小老板海苔、皇家牛乳片、泰式奶茶、酸辣泡麵、椰子零食</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">下午</span>
+              <span class="timeline-desc">打包行李，整理戰利品</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">下午</span>
+              <span class="timeline-desc">泳池最後一游</span>
+              <span class="timeline-detail">把握最後的度假時光</span>
+            </div>
+            <div class="timeline-item highlight">
+              <span class="timeline-time">晚間</span>
+              <span class="timeline-desc">歡送晚餐</span>
+              <span class="timeline-detail">選一間好餐廳，為這趟美好的家庭旅行畫下完美句點</span>
+            </div>
+          </div>
+          <div class="callout callout-tip">
+            <strong>伴手禮清單</strong>
+            Big C 必買：小老板海苔（大包裝便宜超多）、皇家牛乳片、Mama 泡麵、泰式奶茶即溶包、椰子脆片、芒果乾。記得留行李空間！
+          </div>
+        </div>
+      </details>
+
+      <!-- Day 25 -->
+      <details class="day-card" data-segment="purple">
+        <summary>
+          <span class="day-number">Day 25</span>
+          <span class="day-date">8/29 (六)</span>
+          <span class="day-title">回家</span>
+          <span class="location-tag tag-purple">曼谷 → 台灣</span>
+          <span class="cost-badge">~300-500 THB</span>
+        </summary>
+        <div class="day-content">
+          <div class="timeline">
+            <div class="timeline-item">
+              <span class="timeline-time">上午</span>
+              <span class="timeline-desc">飯店享用最後一頓早餐</span>
+            </div>
+            <div class="timeline-item highlight">
+              <span class="timeline-time">前往機場</span>
+              <span class="timeline-desc">Grab 叫車前往 BKK 蘇凡納布機場</span>
+              <span class="timeline-cost">300-500 THB</span>
+            </div>
+            <div class="timeline-item highlight">
+              <span class="timeline-time">飛行</span>
+              <span class="timeline-desc">VietJet 飛回台灣</span>
+              <span class="timeline-detail">帶著滿滿回憶和伴手禮回家！</span>
+            </div>
+          </div>
+          <div class="callout callout-warning">
+            <strong>注意事項</strong>
+            提早 3 小時到機場，國際航班需預留充裕時間。記得在機場退稅（消費滿 2,000 THB 可申請）。液體類伴手禮要放託運行李。
+          </div>
+          <div class="callout callout-parent">
+            <strong>親子提醒</strong>
+            回程飛機上準備好零食和平板電腦給小孩。2 歲幼兒起降時可能耳朵不適，準備奶嘴或讓他喝水吞嚥。
+          </div>
+        </div>
+      </details>
+
+    </div><!-- /days-container segment 9 -->
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="page-footer">
+    <p>2025 泰國家庭旅遊 | 8/5 - 8/29 共 25 天</p>
+    <p style="margin-top: 0.5rem;">
+      <a href="index.html">首頁</a> &middot;
+      <a href="itinerary.html">每日行程</a> &middot;
+      <a href="accommodation.html">住宿介紹</a> &middot;
+      <a href="budget.html">費用總覽</a> &middot;
+      <a href="preparation.html">行前準備</a>
+    </p>
+  </footer>
+
+  <!-- JavaScript: Toggle All & Mobile Nav -->
+  <script>
+    // Expand / Collapse All
+    document.getElementById('btn-expand').addEventListener('click', function () {
+      document.querySelectorAll('details.day-card').forEach(function (d) {
+        d.open = true;
+      });
+    });
+
+    document.getElementById('btn-collapse').addEventListener('click', function () {
+      document.querySelectorAll('details.day-card').forEach(function (d) {
+        d.open = false;
+      });
+    });
+
+    // Mobile Navigation Toggle
+    var navToggle = document.querySelector('.navbar-toggle');
+    var navMenu = document.getElementById('nav-menu');
+
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', function () {
+        var isOpen = navMenu.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', isOpen);
+      });
+
+      // Close menu when a link is clicked
+      navMenu.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          navMenu.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>

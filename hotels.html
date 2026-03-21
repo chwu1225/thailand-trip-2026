@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>住宿介紹 — 泰國家庭旅遊 2025</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           Page-Specific Styles: Hotels Page
+           ============================================ */
+
+        /* --- Reset & Base (fallback if shared CSS not loaded) --- */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold: #D4A843;
+            --gold-light: #E8C96A;
+            --gold-dark: #B8912E;
+            --teal: #2A9D8F;
+            --teal-light: #3AB8A8;
+            --teal-dark: #1F7A6F;
+            --deep-purple: #264653;
+            --deep-purple-light: #2D5566;
+            --warm-white: #F8F4E8;
+            --warm-white-dark: #EDE8D8;
+            --text-dark: #1A1A2E;
+            --text-muted: #5A5A72;
+            --shadow-sm: 0 2px 8px rgba(38,70,83,0.08);
+            --shadow-md: 0 4px 20px rgba(38,70,83,0.12);
+            --shadow-lg: 0 8px 40px rgba(38,70,83,0.16);
+            --shadow-xl: 0 12px 60px rgba(38,70,83,0.20);
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: var(--warm-white);
+            color: var(--text-dark);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Kanit', 'Noto Sans TC', sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* --- Sticky Navigation --- */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(38, 70, 83, 0.97);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 2px solid var(--gold);
+            padding: 0 24px;
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .nav-logo {
+            font-family: 'Kanit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 4px;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 8px 16px;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: var(--radius-sm);
+            transition: all 0.25s ease;
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus-visible {
+            color: #fff;
+            background: rgba(212,168,67,0.15);
+        }
+
+        .nav-links a.active {
+            color: var(--gold);
+            background: rgba(212,168,67,0.12);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            color: var(--gold);
+        }
+
+        .nav-toggle svg {
+            width: 28px;
+            height: 28px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            position: relative;
+            min-height: 420px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--deep-purple) 0%, #1a3a4a 40%, var(--teal-dark) 100%);
+            overflow: hidden;
+            padding: 80px 24px 60px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 600px 400px at 20% 80%, rgba(212,168,67,0.15) 0%, transparent 70%),
+                radial-gradient(ellipse 500px 300px at 80% 20%, rgba(42,157,143,0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(to top, var(--warm-white) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 16px;
+            display: block;
+            animation: floatIcon 3s ease-in-out infinite;
+        }
+
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 12px;
+            letter-spacing: 0.02em;
+        }
+
+        .hero h1 span {
+            color: var(--gold);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: rgba(255,255,255,0.75);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-value {
+            font-family: 'Kanit', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1.2;
+        }
+
+        .hero-stat-label {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+            margin-top: 2px;
+        }
+
+        /* --- Page Container --- */
+        .page-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+        }
+
+        /* --- Section Intro --- */
+        .section-intro {
+            text-align: center;
+            padding: 48px 0 40px;
+        }
+
+        .section-intro h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--deep-purple);
+            margin-bottom: 12px;
+        }
+
+        .section-intro p {
+            color: var(--text-muted);
+            max-width: 640px;
+            margin: 0 auto;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* --- Quick Legend --- */
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px 24px;
+            justify-content: center;
+            padding: 16px 24px;
+            background: #fff;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 48px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .legend-dot.featured { background: linear-gradient(135deg, var(--gold), var(--gold-light)); }
+        .legend-dot.standard { background: var(--teal); }
+
+        /* --- Hotel Card --- */
+        .hotel-card {
+            background: #fff;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            margin-bottom: 48px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .hotel-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .hotel-card.featured {
+            border: 2px solid var(--gold);
+        }
+
+        .hotel-card.featured::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light), var(--gold));
+            z-index: 2;
+        }
+
+        /* Card Header */
+        .card-header {
+            position: relative;
+            padding: 32px 32px 24px;
+            color: #fff;
+        }
+
+        .card-header.segment-airport {
+            background: linear-gradient(135deg, #3a3a5c 0%, #2a2a4a 100%);
+        }
+        .card-header.segment-chiangmai {
+            background: linear-gradient(135deg, #2A9D8F 0%, #1F7A6F 100%);
+        }
+        .card-header.segment-chiangdao {
+            background: linear-gradient(135deg, #3d8b37 0%, #2a6d25 100%);
+        }
+        .card-header.segment-khaoyai {
+            background: linear-gradient(135deg, #5a8f3d 0%, #3d6d25 100%);
+        }
+        .card-header.segment-kanchanaburi {
+            background: linear-gradient(135deg, #264653 0%, #1a3040 100%);
+        }
+        .card-header.segment-amphawa {
+            background: linear-gradient(135deg, #c06030 0%, #9a4a20 100%);
+        }
+        .card-header.segment-ayutthaya {
+            background: linear-gradient(135deg, #8B4513 0%, #6B3010 100%);
+        }
+        .card-header.segment-bangkok {
+            background: linear-gradient(135deg, #D4A843 0%, #B8912E 100%);
+        }
+
+        .card-header-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .card-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            font-family: 'Kanit', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .featured-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(212,168,67,0.25);
+            border: 1px solid rgba(212,168,67,0.5);
+            padding: 4px 14px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--gold-light);
+            backdrop-filter: blur(4px);
+        }
+
+        .card-hotel-name {
+            font-size: clamp(1.4rem, 3vw, 1.8rem);
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 4px;
+        }
+
+        .card-location {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .card-location svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        /* Card Meta Row */
+        .card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 20px 32px;
+            background: var(--warm-white);
+            border-bottom: 1px solid var(--warm-white-dark);
+        }
+
+        .meta-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            background: #fff;
+            border: 1px solid #e8e4d8;
+            color: var(--text-dark);
+        }
+
+        .meta-tag svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .meta-tag.price {
+            background: linear-gradient(135deg, var(--deep-purple), var(--deep-purple-light));
+            color: #fff;
+            border-color: var(--deep-purple);
+            font-weight: 600;
+        }
+
+        .meta-tag.rating {
+            background: var(--gold);
+            color: var(--deep-purple);
+            border-color: var(--gold);
+            font-weight: 700;
+        }
+
+        .meta-tag.rating.high {
+            background: linear-gradient(135deg, #e8c96a, #D4A843);
+        }
+
+        .meta-tag.breakfast-yes {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-color: #c8e6c9;
+        }
+
+        .meta-tag.breakfast-no {
+            background: #fff3e0;
+            color: #e65100;
+            border-color: #ffe0b2;
+        }
+
+        .meta-tag.dates {
+            background: #e3f2fd;
+            color: #1565c0;
+            border-color: #bbdefb;
+        }
+
+        /* Card Body */
+        .card-body {
+            padding: 28px 32px;
+        }
+
+        .card-section-title {
+            font-family: 'Kanit', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--deep-purple);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--warm-white-dark);
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .feature-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: var(--warm-white);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            border: 1px solid var(--warm-white-dark);
+            transition: background 0.2s ease;
+        }
+
+        .feature-pill:hover {
+            background: var(--warm-white-dark);
+        }
+
+        .feature-pill .icon {
+            font-size: 1rem;
+        }
+
+        /* Description */
+        .card-description {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            padding: 20px;
+            background: var(--warm-white);
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--teal);
+        }
+
+        .featured .card-description {
+            border-left-color: var(--gold);
+        }
+
+        /* Special Highlight */
+        .special-highlight {
+            padding: 20px 24px;
+            background: linear-gradient(135deg, rgba(212,168,67,0.08), rgba(212,168,67,0.03));
+            border: 1px solid rgba(212,168,67,0.2);
+            border-radius: var(--radius-md);
+            margin-bottom: 24px;
+        }
+
+        .special-highlight-title {
+            font-family: 'Kanit', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--gold-dark);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .special-highlight p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* Room Info */
+        .room-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .room-info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 12px 16px;
+            background: var(--warm-white);
+            border-radius: var(--radius-sm);
+        }
+
+        .room-info-item .info-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .room-info-item .info-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-weight: 600;
+        }
+
+        .room-info-item .info-value {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        /* Booking Button */
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 20px 32px;
+            background: var(--warm-white);
+            border-top: 1px solid var(--warm-white-dark);
+            flex-wrap: wrap;
+        }
+
+        .booking-source {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .booking-source strong {
+            color: var(--text-dark);
+        }
+
+        .btn-booking {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+            color: #fff;
+            font-family: 'Kanit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 100px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(42,157,143,0.3);
+        }
+
+        .btn-booking:hover,
+        .btn-booking:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(42,157,143,0.4);
+            background: linear-gradient(135deg, var(--teal-light), var(--teal));
+        }
+
+        .btn-booking:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 2px;
+        }
+
+        .btn-booking svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .btn-booking.btn-gold {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            box-shadow: 0 4px 16px rgba(212,168,67,0.3);
+        }
+
+        .btn-booking.btn-gold:hover,
+        .btn-booking.btn-gold:focus-visible {
+            box-shadow: 0 6px 24px rgba(212,168,67,0.4);
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+        }
+
+        .btn-email {
+            background: linear-gradient(135deg, var(--deep-purple), var(--deep-purple-light));
+            box-shadow: 0 4px 16px rgba(38,70,83,0.3);
+        }
+
+        .btn-email:hover,
+        .btn-email:focus-visible {
+            box-shadow: 0 6px 24px rgba(38,70,83,0.4);
+            background: linear-gradient(135deg, var(--deep-purple-light), var(--deep-purple));
+        }
+
+        /* --- Comparison Table Section --- */
+        .comparison-section {
+            margin-top: 80px;
+            padding-top: 48px;
+            border-top: 2px solid var(--warm-white-dark);
+        }
+
+        .comparison-section h2 {
+            font-family: 'Kanit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--deep-purple);
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .comparison-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            font-size: 0.95rem;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            background: #fff;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .table-wrapper::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-track {
+            background: var(--warm-white);
+            border-radius: 4px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-thumb {
+            background: var(--teal);
+            border-radius: 4px;
+        }
+
+        .compare-table {
+            width: 100%;
+            min-width: 900px;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .compare-table thead {
+            background: var(--deep-purple);
+            color: #fff;
+        }
+
+        .compare-table th {
+            padding: 14px 16px;
+            text-align: left;
+            font-family: 'Kanit', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+        }
+
+        .compare-table th:first-child {
+            border-radius: var(--radius-lg) 0 0 0;
+        }
+
+        .compare-table th:last-child {
+            border-radius: 0 var(--radius-lg) 0 0;
+        }
+
+        .compare-table tbody tr {
+            border-bottom: 1px solid var(--warm-white-dark);
+            transition: background 0.2s ease;
+        }
+
+        .compare-table tbody tr:hover {
+            background: rgba(42,157,143,0.04);
+        }
+
+        .compare-table tbody tr.featured-row {
+            background: rgba(212,168,67,0.06);
+        }
+
+        .compare-table tbody tr.featured-row:hover {
+            background: rgba(212,168,67,0.10);
+        }
+
+        .compare-table td {
+            padding: 14px 16px;
+            vertical-align: middle;
+        }
+
+        .compare-table .hotel-name-cell {
+            font-weight: 600;
+            color: var(--deep-purple);
+            white-space: nowrap;
+        }
+
+        .compare-table .hotel-name-cell .star {
+            color: var(--gold);
+            margin-right: 4px;
+        }
+
+        .table-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 100px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .table-badge.yes {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .table-badge.no {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .table-badge.score {
+            background: var(--gold);
+            color: var(--deep-purple);
+        }
+
+        .table-badge.score.high {
+            background: linear-gradient(135deg, #e8c96a, #D4A843);
+        }
+
+        .table-total-row td {
+            font-weight: 700;
+            background: var(--warm-white);
+            border-top: 2px solid var(--deep-purple);
+            font-family: 'Kanit', sans-serif;
+        }
+
+        /* --- Scroll Indicator --- */
+        .scroll-hint {
+            display: none;
+            text-align: center;
+            padding: 12px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            gap: 6px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scroll-hint svg {
+            width: 16px;
+            height: 16px;
+            animation: slideRight 1.5s ease-in-out infinite;
+        }
+
+        @keyframes slideRight {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(6px); }
+        }
+
+        /* --- Footer --- */
+        .page-footer {
+            background: var(--deep-purple);
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            padding: 32px 24px;
+            font-size: 0.85rem;
+        }
+
+        .page-footer strong {
+            color: var(--gold);
+        }
+
+        /* --- Back to Top --- */
+        .back-to-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--deep-purple);
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-md);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background: var(--gold);
+            color: var(--deep-purple);
+        }
+
+        .back-to-top:focus-visible {
+            outline: 3px solid var(--teal);
+            outline-offset: 2px;
+        }
+
+        .back-to-top svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        /* --- Skip Link (Accessibility) --- */
+        .skip-link {
+            position: absolute;
+            top: -100%;
+            left: 16px;
+            background: var(--gold);
+            color: var(--deep-purple);
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            z-index: 9999;
+            transition: top 0.2s ease;
+        }
+
+        .skip-link:focus {
+            top: 8px;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 64px;
+                left: 0;
+                right: 0;
+                background: rgba(38,70,83,0.98);
+                flex-direction: column;
+                padding: 8px 16px 16px;
+                border-bottom: 2px solid var(--gold);
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .hero {
+                min-height: 340px;
+                padding: 60px 20px 48px;
+            }
+
+            .hero-stats {
+                gap: 20px;
+            }
+
+            .card-header {
+                padding: 24px 20px 20px;
+            }
+
+            .card-meta {
+                padding: 16px 20px;
+            }
+
+            .card-body {
+                padding: 20px;
+            }
+
+            .card-footer {
+                padding: 16px 20px;
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+
+            .btn-booking {
+                justify-content: center;
+                width: 100%;
+            }
+
+            .room-info {
+                grid-template-columns: 1fr;
+            }
+
+            .scroll-hint {
+                display: flex;
+            }
+
+            .legend {
+                gap: 10px 16px;
+                padding: 12px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .hero-stat-value {
+                font-size: 1.5rem;
+            }
+
+            .card-hotel-name {
+                font-size: 1.2rem;
+            }
+
+            .card-header-top {
+                flex-direction: column;
+            }
+
+            .meta-tag {
+                font-size: 0.78rem;
+                padding: 5px 10px;
+            }
+
+            .feature-pill {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+        }
+
+        /* --- Print Styles --- */
+        @media print {
+            .nav, .back-to-top, .btn-booking, .nav-toggle {
+                display: none !important;
+            }
+
+            .hotel-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 24px;
+                background: #264653 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            body {
+                font-size: 11pt;
+            }
+        }
+
+        /* --- Reduced Motion --- */
+        @media (prefers-reduced-motion: reduce) {
+            .hero-icon {
+                animation: none;
+            }
+
+            .hotel-card {
+                transition: none;
+            }
+
+            .btn-booking {
+                transition: none;
+            }
+
+            html {
+                scroll-behavior: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Navigation (Accessibility) -->
+    <a href="#main-content" class="skip-link">跳至主要內容</a>
+
+    <!-- Sticky Navigation -->
+    <nav class="nav" role="navigation" aria-label="主要導覽">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo" aria-label="泰國家庭旅遊首頁">Thailand 2025</a>
+            <button class="nav-toggle" aria-label="開啟選單" aria-expanded="false" aria-controls="nav-menu">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                    <line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
+            <ul class="nav-links" id="nav-menu" role="menubar">
+                <li role="none"><a href="index.html" role="menuitem">首頁</a></li>
+                <li role="none"><a href="itinerary.html" role="menuitem">每日行程</a></li>
+                <li role="none"><a href="hotels.html" role="menuitem" class="active" aria-current="page">住宿介紹</a></li>
+                <li role="none"><a href="budget.html" role="menuitem">費用總覽</a></li>
+                <li role="none"><a href="preparation.html" role="menuitem">行前準備</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <span class="hero-icon" aria-hidden="true">🏨</span>
+            <h1><span>9</span> 間住宿介紹</h1>
+            <p class="hero-subtitle">從河上漂浮木屋到山中世外桃源，精選最適合親子的住宿體驗</p>
+            <div class="hero-stats" aria-label="住宿統計">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">24</div>
+                    <div class="hero-stat-label">總住宿晚數</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">3</div>
+                    <div class="hero-stat-label">特色住宿</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">6</div>
+                    <div class="hero-stat-label">含早餐</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="page-container">
+
+        <section class="section-intro">
+            <h2>住宿一覽</h2>
+            <p>這趟旅程的住宿經過精心挑選，從平價中繼站到獨特體驗型住宿都有。3 間特色住宿是行程的重頭戲，絕對值得期待。</p>
+        </section>
+
+        <!-- Legend -->
+        <div class="legend" role="note" aria-label="圖例說明">
+            <div class="legend-item">
+                <span class="legend-dot featured" aria-hidden="true"></span>
+                特色住宿（必體驗）
+            </div>
+            <div class="legend-item">
+                <span class="legend-dot standard" aria-hidden="true"></span>
+                標準住宿
+            </div>
+            <div class="legend-item">
+                <span aria-hidden="true">&#10003;</span>
+                含早餐
+            </div>
+            <div class="legend-item">
+                <span aria-hidden="true">&#10007;</span>
+                不含早餐
+            </div>
+        </div>
+
+        <!-- ================================================
+             Hotel 1: BS Residence Suvarnabhumi
+             ================================================ -->
+        <article class="hotel-card" id="hotel-1" aria-labelledby="hotel-1-title">
+            <div class="card-header segment-airport">
+                <div class="card-header-top">
+                    <span class="card-number" aria-hidden="true">1</span>
+                </div>
+                <h3 class="card-hotel-name" id="hotel-1-title">BS Residence Suvarnabhumi</h3>
+                <div class="card-location">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    曼谷機場
+                </div>
+            </div>
+            <div class="card-meta" aria-label="基本資訊">
+                <span class="meta-tag dates">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    8/5，1 晚
+                </span>
+                <span class="meta-tag price">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                    608-940 THB/晚
+                </span>
+                <span class="meta-tag rating">7.0</span>
+                <span class="meta-tag breakfast-yes">&#10003; 含早餐</span>
+            </div>
+            <div class="card-body">
+                <h4 class="card-section-title">房型與設施</h4>
+                <div class="room-info">
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">🛏</span>
+                        <div>
+                            <div class="info-label">房型</div>
+                            <div class="info-value">含早餐方案，2 張床</div>
+                        </div>
+                    </div>
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">📋</span>
+                        <div>
+                            <div class="info-label">訂房平台</div>
+                            <div class="info-value">Booking.com</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="card-section-title">特色亮點</h4>
+                <div class="features-grid">
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#128652;</span>免費 24 小時機場接送</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#9200;</span>每 30 分鐘一班</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#127946;</span>兒童泳池</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#127828;</span>含早餐</span>
+                </div>
+
+                <h4 class="card-section-title">住宿介紹</h4>
+                <div class="card-description">
+                    純過夜中繼站，價格便宜，免費接送超方便。隔天一早飛清邁不需額外叫車。
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="booking-source">訂房平台：<strong>Booking.com</strong></div>
+                <a href="https://www.booking.com/hotel/th/bs-residence-suvarnabhumi.html" target="_blank" rel="noopener noreferrer" class="btn-booking" aria-label="前往 Booking.com 預訂 BS Residence Suvarnabhumi">
+                    前往預訂
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+            </div>
+        </article>
+
+        <!-- ================================================
+             Hotel 2: SK House 2
+             ================================================ -->
+        <article class="hotel-card" id="hotel-2" aria-labelledby="hotel-2-title">
+            <div class="card-header segment-chiangmai">
+                <div class="card-header-top">
+                    <span class="card-number" aria-hidden="true">2</span>
+                </div>
+                <h3 class="card-hotel-name" id="hotel-2-title">SK House 2</h3>
+                <div class="card-location">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    清邁古城
+                </div>
+            </div>
+            <div class="card-meta" aria-label="基本資訊">
+                <span class="meta-tag dates">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    8/6-10，5 晚
+                </span>
+                <span class="meta-tag price">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                    ~1,435 THB/晚
+                </span>
+                <span class="meta-tag rating">7.4</span>
+                <span class="meta-tag breakfast-no">&#10007; 可加購 100 THB/人</span>
+            </div>
+            <div class="card-body">
+                <h4 class="card-section-title">房型與設施</h4>
+                <div class="room-info">
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">🛏</span>
+                        <div>
+                            <div class="info-label">房型</div>
+                            <div class="info-value">家庭房（2 單人床 + 1 加大雙人床）</div>
+                        </div>
+                    </div>
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">📋</span>
+                        <div>
+                            <div class="info-label">訂房平台</div>
+                            <div class="info-value">Booking.com</div>
+                        </div>
+                    </div>
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">&#9888;</span>
+                        <div>
+                            <div class="info-label">重要提醒</div>
+                            <div class="info-value" style="color: #e65100; font-weight: 600;">只收現金！</div>
+                        </div>
+                    </div>
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">&#127775;</span>
+                        <div>
+                            <div class="info-label">地點評分</div>
+                            <div class="info-value" style="color: var(--teal); font-weight: 700;">9.1 分！</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="card-section-title">特色亮點</h4>
+                <div class="features-grid">
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#127983;</span>古城內蘭納風木屋</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#128694;</span>步行可達帕辛寺</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#128694;</span>步行可達柴迪隆寺</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#127946;</span>泳池</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#127961;</span>步行可達夜市</span>
+                </div>
+
+                <h4 class="card-section-title">住宿介紹</h4>
+                <div class="card-description">
+                    地點是最大優勢——地點評分 9.1，步行就能到清邁最重要的寺廟和夜市。蘭納風格木屋有泰北氛圍。泳池雖小但適合小孩。注意只收現金！
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="booking-source">訂房平台：<strong>Booking.com</strong>（只收現金）</div>
+                <a href="https://www.booking.com/hotel/th/s-k-house-2.html" target="_blank" rel="noopener noreferrer" class="btn-booking" aria-label="前往 Booking.com 預訂 SK House 2">
+                    前往預訂
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+            </div>
+        </article>
+
+        <!-- ================================================
+             Hotel 3: Chiang Dao Nest 2 (FEATURED)
+             ================================================ -->
+        <article class="hotel-card featured" id="hotel-3" aria-labelledby="hotel-3-title">
+            <div class="card-header segment-chiangdao">
+                <div class="card-header-top">
+                    <span class="card-number" aria-hidden="true">3</span>
+                    <span class="featured-badge" aria-label="特色住宿">&#11088; 特色住宿</span>
+                </div>
+                <h3 class="card-hotel-name" id="hotel-3-title">Chiang Dao Nest 2</h3>
+                <div class="card-location">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    清道（Chiang Dao）
+                </div>
+            </div>
+            <div class="card-meta" aria-label="基本資訊">
+                <span class="meta-tag dates">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    8/11-13，3 晚
+                </span>
+                <span class="meta-tag price">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                    2,945 THB/晚（固定價）
+                </span>
+                <span class="meta-tag rating high">極高</span>
+                <span class="meta-tag breakfast-no">&#10007; 不含（餐廳用餐）</span>
+            </div>
+            <div class="card-body">
+                <h4 class="card-section-title">房型與設施</h4>
+                <div class="room-info">
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">🛏</span>
+                        <div>
+                            <div class="info-label">房型</div>
+                            <div class="info-value">Family Suite</div>
+                        </div>
+                    </div>
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">&#9993;</span>
+                        <div>
+                            <div class="info-label">訂房方式</div>
+                            <div class="info-value">只能 Email 預訂</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="card-section-title">特色亮點</h4>
+                <div class="features-grid">
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#9968;</span>群山環繞世外桃源</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#127806;</span>被稻田和山林包圍</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#127860;</span>「泰國最好吃的泰菜」餐廳</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#127747;</span>零光害</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#127748;</span>雲霧繚繞山景</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#127793;</span>大片草地</span>
+                </div>
+
+                <h4 class="card-section-title">住宿介紹</h4>
+                <div class="card-description">
+                    藏在山裡的世外桃源。園區是花園小徑，走出去就是壯觀山景。餐廳被旅客評為「在泰國吃過最好的泰菜」。晚上完全沒有光害，聽蟲鳴鳥叫入睡。下午雲霧繚繞山頭，像水墨畫。大片草地讓小孩奔跑，與城市完全不同的寧靜體驗。
+                </div>
+
+                <div class="special-highlight">
+                    <div class="special-highlight-title">
+                        <span aria-hidden="true">&#11088;</span> 為什麼是特色住宿？
+                    </div>
+                    <p>山景 + 頂級泰菜餐廳 + 零光害 + 世外桃源氛圍——這是一間藏在 Doi Luang Chiang Dao 山腳下的秘境，讓全家人體驗與世隔絕的寧靜。</p>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="booking-source">訂房方式：<strong>Email</strong> — nest@chiangdao.com</div>
+                <a href="mailto:nest@chiangdao.com?subject=Family Suite Booking Inquiry - August 2025" class="btn-booking btn-email" aria-label="寄送 Email 預訂 Chiang Dao Nest 2">
+                    寄信預訂
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </a>
+            </div>
+        </article>
+
+        <!-- ================================================
+             Hotel 4: Watermill Resort (FEATURED)
+             ================================================ -->
+        <article class="hotel-card featured" id="hotel-4" aria-labelledby="hotel-4-title">
+            <div class="card-header segment-khaoyai">
+                <div class="card-header-top">
+                    <span class="card-number" aria-hidden="true">4</span>
+                    <span class="featured-badge" aria-label="特色住宿">&#11088; 特色住宿</span>
+                </div>
+                <h3 class="card-hotel-name" id="hotel-4-title">Watermill Resort</h3>
+                <div class="card-location">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    考艾（Khao Yai）
+                </div>
+            </div>
+            <div class="card-meta" aria-label="基本資訊">
+                <span class="meta-tag dates">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    8/14-17，4 晚
+                </span>
+                <span class="meta-tag price">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                    2,000-3,000 THB/晚
+                </span>
+                <span class="meta-tag rating high">8.6</span>
+                <span class="meta-tag breakfast-no">&#10007; 不含（需外出用餐）</span>
+            </div>
+            <div class="card-body">
+                <h4 class="card-section-title">房型與設施</h4>
+                <div class="room-info">
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">🛏</span>
+                        <div>
+                            <div class="info-label">房型</div>
+                            <div class="info-value">Twin House by The Creek（2 Queen 床）</div>
+                        </div>
+                    </div>
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">📋</span>
+                        <div>
+                            <div class="info-label">訂房平台</div>
+                            <div class="info-value">Booking.com</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="card-section-title">特色亮點</h4>
+                <div class="features-grid">
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#128166;</span>天然小溪穿過園區</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#129442;</span>天鵝、鵝群</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#129436;</span>鸚鵡</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#128031;</span>魚池</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#128692;</span>兒童腳踏車</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#128675;</span>划船</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#127969;</span>房間在小溪旁</span>
+                </div>
+
+                <h4 class="card-section-title">住宿介紹</h4>
+                <div class="card-description">
+                    園區有一條天然小溪穿過，可以踩水玩。養了天鵝、鵝群、鸚鵡、魚，小孩每天餵不膩。有兒童腳踏車可以在園區騎。可以划小船在池塘上。房間就在小溪旁，開窗聽水聲。不出門就能玩一整天。
+                </div>
+
+                <div class="special-highlight">
+                    <div class="special-highlight-title">
+                        <span aria-hidden="true">&#11088;</span> 為什麼是特色住宿？
+                    </div>
+                    <p>小溪 + 天鵝鵝鸚鵡 + 腳踏車 + 划船 = 親子天堂。住在農場裡，小孩每天有玩不完的活動，是真正的「住宿即景點」。</p>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="booking-source">訂房平台：<strong>Booking.com</strong></div>
+                <a href="https://www.booking.com/hotel/th/watermill-resort.html" target="_blank" rel="noopener noreferrer" class="btn-booking btn-gold" aria-label="前往 Booking.com 預訂 Watermill Resort">
+                    前往預訂
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+            </div>
+        </article>
+
+        <!-- ================================================
+             Hotel 5: Mittapan Hotel
+             ================================================ -->
+        <article class="hotel-card" id="hotel-5" aria-labelledby="hotel-5-title">
+            <div class="card-header segment-kanchanaburi">
+                <div class="card-header-top">
+                    <span class="card-number" aria-hidden="true">5</span>
+                </div>
+                <h3 class="card-hotel-name" id="hotel-5-title">Mittapan Hotel</h3>
+                <div class="card-location">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    北碧市區（Kanchanaburi）
+                </div>
+            </div>
+            <div class="card-meta" aria-label="基本資訊">
+                <span class="meta-tag dates">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    8/18-19，2 晚
+                </span>
+                <span class="meta-tag price">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                    ~1,600 THB/晚
+                </span>
+                <span class="meta-tag rating high">8.5</span>
+                <span class="meta-tag breakfast-yes">&#10003; 含早餐</span>
+            </div>
+            <div class="card-body">
+                <h4 class="card-section-title">房型與設施</h4>
+                <div class="room-info">
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">🛏</span>
+                        <div>
+                            <div class="info-label">房型</div>
+                            <div class="info-value">高級三人房（3 單人床）</div>
+                        </div>
+                    </div>
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">📋</span>
+                        <div>
+                            <div class="info-label">訂房平台</div>
+                            <div class="info-value">Booking.com</div>
+                        </div>
+                    </div>
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">&#128118;</span>
+                        <div>
+                            <div class="info-label">兒童政策</div>
+                            <div class="info-value" style="color: var(--teal); font-weight: 600;">2 位小孩免費入住</div>
+                        </div>
+                    </div>
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">&#128172;</span>
+                        <div>
+                            <div class="info-label">評語數</div>
+                            <div class="info-value">1,161 則</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="card-section-title">特色亮點</h4>
+                <div class="features-grid">
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#127828;</span>含早餐</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#127946;</span>泳池</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#128118;</span>2 位小孩免費</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#128205;</span>距桂河大橋 1.6km</span>
+                </div>
+
+                <h4 class="card-section-title">住宿介紹</h4>
+                <div class="card-description">
+                    取代了老舊的 Felix River Kwai Hotel（30 年以上設施），更新、更便宜、含早餐、評分更高。距桂河大橋 1.6km，3 張單人床分配給 2 大 2 小很彈性。
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="booking-source">訂房平台：<strong>Booking.com</strong></div>
+                <a href="https://www.booking.com/hotel/th/mittapan.html" target="_blank" rel="noopener noreferrer" class="btn-booking" aria-label="前往 Booking.com 預訂 Mittapan Hotel">
+                    前往預訂
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+            </div>
+        </article>
+
+        <!-- ================================================
+             Hotel 6: Boutique Raft Resort (FEATURED)
+             ================================================ -->
+        <article class="hotel-card featured" id="hotel-6" aria-labelledby="hotel-6-title">
+            <div class="card-header segment-kanchanaburi">
+                <div class="card-header-top">
+                    <span class="card-number" aria-hidden="true">6</span>
+                    <span class="featured-badge" aria-label="特色住宿">&#11088; 特色住宿</span>
+                </div>
+                <h3 class="card-hotel-name" id="hotel-6-title">Boutique Raft Resort</h3>
+                <div class="card-location">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    桂河水上（River Kwai）
+                </div>
+            </div>
+            <div class="card-meta" aria-label="基本資訊">
+                <span class="meta-tag dates">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    8/20-21，2 晚
+                </span>
+                <span class="meta-tag price">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                    ~3,000 THB/晚（含加床）
+                </span>
+                <span class="meta-tag rating high">8.3-9.3</span>
+                <span class="meta-tag breakfast-yes">&#10003; 含早餐</span>
+            </div>
+            <div class="card-body">
+                <h4 class="card-section-title">房型與設施</h4>
+                <div class="room-info">
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">🛏</span>
+                        <div>
+                            <div class="info-label">房型</div>
+                            <div class="info-value">River Kwai Suite（1Q+1S+加床，48sqm，水上）</div>
+                        </div>
+                    </div>
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">📋</span>
+                        <div>
+                            <div class="info-label">訂房平台</div>
+                            <div class="info-value">Booking.com（需先確認加床）</div>
+                        </div>
+                    </div>
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">&#128176;</span>
+                        <div>
+                            <div class="info-label">加床費</div>
+                            <div class="info-value">500 THB/晚</div>
+                        </div>
+                    </div>
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">&#127860;</span>
+                        <div>
+                            <div class="info-label">餐食</div>
+                            <div class="info-value">含早餐，午晚餐另計</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="card-section-title">特色亮點</h4>
+                <div class="features-grid">
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#128674;</span>漂浮在桂河上的木屋</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#128675;</span>搭長尾船才能抵達</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#127946;</span>陽台直接跳河游泳</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#127747;</span>與世隔絕</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#128166;</span>天然河水泳池</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#129704;</span>竹椅看河景發呆</span>
+                </div>
+
+                <h4 class="card-section-title">住宿介紹</h4>
+                <div class="card-description">
+                    全行程最獨特的住宿！房間是真的浮在桂河上的竹筏木屋，河水從腳下流過。從陽台可以直接跳進河裡游泳。需要搭長尾船才能抵達，像去一座島。晚上聽河水聲入睡，手機可能沒訊號。公共泳池是鐵籠圍在河裡的天然河水池。陽台有竹椅，看河景發呆放空。
+                </div>
+
+                <div class="special-highlight">
+                    <div class="special-highlight-title">
+                        <span aria-hidden="true">&#11088;</span> 為什麼是特色住宿？
+                    </div>
+                    <p>漂浮木屋 + 跳河游泳 + 搭船抵達 + 與世隔絕——這是全行程最獨特的住宿體驗，真正住在河面上，感受桂河的脈動。</p>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="booking-source">訂房平台：<strong>Booking.com</strong>（需先確認加床可行性）</div>
+                <a href="https://www.booking.com/hotel/th/boutique-raft-resort-river-kwai.html" target="_blank" rel="noopener noreferrer" class="btn-booking btn-gold" aria-label="前往 Booking.com 預訂 Boutique Raft Resort">
+                    前往預訂
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+            </div>
+        </article>
+
+        <!-- ================================================
+             Hotel 7: Bansuwan Homestay
+             ================================================ -->
+        <article class="hotel-card" id="hotel-7" aria-labelledby="hotel-7-title">
+            <div class="card-header segment-amphawa">
+                <div class="card-header-top">
+                    <span class="card-number" aria-hidden="true">7</span>
+                </div>
+                <h3 class="card-hotel-name" id="hotel-7-title">Bansuwan Homestay 班桑灣民宿</h3>
+                <div class="card-location">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    安帕瓦（Amphawa）
+                </div>
+            </div>
+            <div class="card-meta" aria-label="基本資訊">
+                <span class="meta-tag dates">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    8/22，1 晚
+                </span>
+                <span class="meta-tag price">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                    ~1,293 THB/晚
+                </span>
+                <span class="meta-tag rating high">9.7 傑出！</span>
+                <span class="meta-tag breakfast-yes">&#10003; 含早餐</span>
+            </div>
+            <div class="card-body">
+                <h4 class="card-section-title">房型與設施</h4>
+                <div class="room-info">
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">🛏</span>
+                        <div>
+                            <div class="info-label">房型</div>
+                            <div class="info-value">家庭房</div>
+                        </div>
+                    </div>
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">📋</span>
+                        <div>
+                            <div class="info-label">訂房平台</div>
+                            <div class="info-value">Booking.com</div>
+                        </div>
+                    </div>
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">&#128172;</span>
+                        <div>
+                            <div class="info-label">評語數</div>
+                            <div class="info-value">94 則</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="card-section-title">特色亮點</h4>
+                <div class="features-grid">
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#127942;</span>全行程評分最高 9.7</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#127828;</span>含早餐</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#127969;</span>泰式河畔風情</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#128149;</span>主人親切</span>
+                </div>
+
+                <h4 class="card-section-title">住宿介紹</h4>
+                <div class="card-description">
+                    評分高達 9.7（傑出），是全行程評分最高的住宿。含早餐，距安帕瓦水上市場 2.3km（有租車不是問題）。泰式風情的河畔民宿，主人親切。
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="booking-source">訂房平台：<strong>Booking.com</strong></div>
+                <a href="https://www.booking.com/hotel/th/bansuwan-homestay.html" target="_blank" rel="noopener noreferrer" class="btn-booking" aria-label="前往 Booking.com 預訂 Bansuwan Homestay">
+                    前往預訂
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+            </div>
+        </article>
+
+        <!-- ================================================
+             Hotel 8: Auntie House985
+             ================================================ -->
+        <article class="hotel-card" id="hotel-8" aria-labelledby="hotel-8-title">
+            <div class="card-header segment-ayutthaya">
+                <div class="card-header-top">
+                    <span class="card-number" aria-hidden="true">8</span>
+                </div>
+                <h3 class="card-hotel-name" id="hotel-8-title">Auntie House985</h3>
+                <div class="card-location">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    大城（Ayutthaya）
+                </div>
+            </div>
+            <div class="card-meta" aria-label="基本資訊">
+                <span class="meta-tag dates">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    8/23，1 晚
+                </span>
+                <span class="meta-tag price">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                    ~500 THB/晚
+                </span>
+                <span class="meta-tag rating high">9.2</span>
+                <span class="meta-tag breakfast-yes">&#10003; 含早餐</span>
+            </div>
+            <div class="card-body">
+                <h4 class="card-section-title">房型與設施</h4>
+                <div class="room-info">
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">🛏</span>
+                        <div>
+                            <div class="info-label">房型</div>
+                            <div class="info-value">家庭房</div>
+                        </div>
+                    </div>
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">📋</span>
+                        <div>
+                            <div class="info-label">訂房平台</div>
+                            <div class="info-value">Booking.com</div>
+                        </div>
+                    </div>
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">&#128172;</span>
+                        <div>
+                            <div class="info-label">評語數</div>
+                            <div class="info-value">137 則</div>
+                        </div>
+                    </div>
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">&#128176;</span>
+                        <div>
+                            <div class="info-label">CP 值</div>
+                            <div class="info-value" style="color: var(--teal); font-weight: 700;">全行程最便宜！</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="card-section-title">特色亮點</h4>
+                <div class="features-grid">
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#128176;</span>全行程最便宜 500 THB</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#127828;</span>含早餐</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#127942;</span>評分高達 9.2</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#128205;</span>距歷史公園 3.1km</span>
+                </div>
+
+                <h4 class="card-section-title">住宿介紹</h4>
+                <div class="card-description">
+                    不敢相信的 CP 值——只要 500 THB 就能住一晚還含早餐，而且評分高達 9.2。距歷史公園 3.1km，有車前往即可。適合大城只住一晚的中繼站。
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="booking-source">訂房平台：<strong>Booking.com</strong></div>
+                <a href="https://www.booking.com/hotel/th/auntie-house.html" target="_blank" rel="noopener noreferrer" class="btn-booking" aria-label="前往 Booking.com 預訂 Auntie House985">
+                    前往預訂
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+            </div>
+        </article>
+
+        <!-- ================================================
+             Hotel 9: Jasmine Resort
+             ================================================ -->
+        <article class="hotel-card" id="hotel-9" aria-labelledby="hotel-9-title">
+            <div class="card-header segment-bangkok">
+                <div class="card-header-top">
+                    <span class="card-number" aria-hidden="true">9</span>
+                </div>
+                <h3 class="card-hotel-name" id="hotel-9-title">Jasmine Resort</h3>
+                <div class="card-location">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    曼谷（Bangkok）
+                </div>
+            </div>
+            <div class="card-meta" aria-label="基本資訊">
+                <span class="meta-tag dates">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    8/24-28，5 晚
+                </span>
+                <span class="meta-tag price">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                    ~1,350-1,800 THB/晚（官網 9 折）
+                </span>
+                <span class="meta-tag rating high">8.4</span>
+                <span class="meta-tag breakfast-yes">&#10003; 會員小孩免費早餐</span>
+            </div>
+            <div class="card-body">
+                <h4 class="card-section-title">房型與設施</h4>
+                <div class="room-info">
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">🛏</span>
+                        <div>
+                            <div class="info-label">房型</div>
+                            <div class="info-value">Quadruple Room（2 King 床，35m&sup2;）</div>
+                        </div>
+                    </div>
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">📋</span>
+                        <div>
+                            <div class="info-label">訂房方式</div>
+                            <div class="info-value">官網直訂（比 Booking 便宜 10-30%）</div>
+                        </div>
+                    </div>
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">&#128172;</span>
+                        <div>
+                            <div class="info-label">評語數</div>
+                            <div class="info-value">1,037 則</div>
+                        </div>
+                    </div>
+                    <div class="room-info-item">
+                        <span class="info-icon" aria-hidden="true">&#127775;</span>
+                        <div>
+                            <div class="info-label">飯店等級</div>
+                            <div class="info-value">老牌 4 星飯店</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="card-section-title">特色亮點</h4>
+                <div class="features-grid">
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#128646;</span>BTS Phra Khanong 站旁</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#127946;</span>室內外泳池 + 兒童池</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#127828;</span>會員小孩免費早餐</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#128176;</span>官網直訂省 10-30%</span>
+                    <span class="feature-pill"><span class="icon" aria-hidden="true">&#127775;</span>4 星級服務</span>
+                </div>
+
+                <h4 class="card-section-title">住宿介紹</h4>
+                <div class="card-description">
+                    曼谷 5 晚的大本營。BTS 站旁交通超方便，室內外泳池加兒童池讓小孩每天玩不膩。官網直訂比 Booking.com 便宜 10-30%，註冊會員後 2 個小孩早餐免費。Quadruple Room 有 2 張 King 床，空間寬敞。
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="booking-source">訂房方式：<strong>官網直訂</strong> jasminehotelgroup.com</div>
+                <a href="https://www.jasminehotelgroup.com" target="_blank" rel="noopener noreferrer" class="btn-booking btn-gold" aria-label="前往 Jasmine Resort 官網預訂">
+                    官網預訂（更便宜）
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+            </div>
+        </article>
+
+        <!-- ================================================
+             Comparison Table
+             ================================================ -->
+        <section class="comparison-section" id="compare" aria-labelledby="compare-title">
+            <h2 id="compare-title">9 間住宿總覽比較</h2>
+            <p class="comparison-subtitle">一目了然，快速比較所有住宿的價格、評分與設施</p>
+
+            <div class="scroll-hint" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                左右滑動查看完整表格
+            </div>
+
+            <div class="table-wrapper" tabindex="0" role="region" aria-label="住宿比較表格，可水平捲動">
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">住宿名稱</th>
+                            <th scope="col">地點</th>
+                            <th scope="col">日期</th>
+                            <th scope="col">晚數</th>
+                            <th scope="col">每晚價格 (THB)</th>
+                            <th scope="col">早餐</th>
+                            <th scope="col">評分</th>
+                            <th scope="col">訂房</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td class="hotel-name-cell"><a href="#hotel-1">BS Residence</a></td>
+                            <td>曼谷機場</td>
+                            <td>8/5</td>
+                            <td>1</td>
+                            <td>608-940</td>
+                            <td><span class="table-badge yes">含</span></td>
+                            <td><span class="table-badge score">7.0</span></td>
+                            <td>Booking</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td class="hotel-name-cell"><a href="#hotel-2">SK House 2</a></td>
+                            <td>清邁古城</td>
+                            <td>8/6-10</td>
+                            <td>5</td>
+                            <td>~1,435</td>
+                            <td><span class="table-badge no">加購</span></td>
+                            <td><span class="table-badge score">7.4</span></td>
+                            <td>Booking</td>
+                        </tr>
+                        <tr class="featured-row">
+                            <td>3</td>
+                            <td class="hotel-name-cell"><span class="star">&#11088;</span><a href="#hotel-3">Chiang Dao Nest 2</a></td>
+                            <td>清道</td>
+                            <td>8/11-13</td>
+                            <td>3</td>
+                            <td>2,945</td>
+                            <td><span class="table-badge no">不含</span></td>
+                            <td><span class="table-badge score high">極高</span></td>
+                            <td>Email</td>
+                        </tr>
+                        <tr class="featured-row">
+                            <td>4</td>
+                            <td class="hotel-name-cell"><span class="star">&#11088;</span><a href="#hotel-4">Watermill Resort</a></td>
+                            <td>考艾</td>
+                            <td>8/14-17</td>
+                            <td>4</td>
+                            <td>2,000-3,000</td>
+                            <td><span class="table-badge no">不含</span></td>
+                            <td><span class="table-badge score high">8.6</span></td>
+                            <td>Booking</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td class="hotel-name-cell"><a href="#hotel-5">Mittapan Hotel</a></td>
+                            <td>北碧市區</td>
+                            <td>8/18-19</td>
+                            <td>2</td>
+                            <td>~1,600</td>
+                            <td><span class="table-badge yes">含</span></td>
+                            <td><span class="table-badge score high">8.5</span></td>
+                            <td>Booking</td>
+                        </tr>
+                        <tr class="featured-row">
+                            <td>6</td>
+                            <td class="hotel-name-cell"><span class="star">&#11088;</span><a href="#hotel-6">Boutique Raft Resort</a></td>
+                            <td>桂河水上</td>
+                            <td>8/20-21</td>
+                            <td>2</td>
+                            <td>~3,000</td>
+                            <td><span class="table-badge yes">含</span></td>
+                            <td><span class="table-badge score high">8.3-9.3</span></td>
+                            <td>Booking</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td class="hotel-name-cell"><a href="#hotel-7">Bansuwan Homestay</a></td>
+                            <td>安帕瓦</td>
+                            <td>8/22</td>
+                            <td>1</td>
+                            <td>~1,293</td>
+                            <td><span class="table-badge yes">含</span></td>
+                            <td><span class="table-badge score high">9.7</span></td>
+                            <td>Booking</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td class="hotel-name-cell"><a href="#hotel-8">Auntie House985</a></td>
+                            <td>大城</td>
+                            <td>8/23</td>
+                            <td>1</td>
+                            <td>~500</td>
+                            <td><span class="table-badge yes">含</span></td>
+                            <td><span class="table-badge score high">9.2</span></td>
+                            <td>Booking</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td class="hotel-name-cell"><a href="#hotel-9">Jasmine Resort</a></td>
+                            <td>曼谷</td>
+                            <td>8/24-28</td>
+                            <td>5</td>
+                            <td>~1,350-1,800</td>
+                            <td><span class="table-badge yes">含（會員）</span></td>
+                            <td><span class="table-badge score high">8.4</span></td>
+                            <td>官網</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="table-total-row">
+                            <td colspan="4" style="text-align: right;">合計</td>
+                            <td>24 晚</td>
+                            <td colspan="4">6 間含早餐 / 3 間特色住宿</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+        <p><strong>Thailand 2025</strong> — 泰國家庭旅遊 24 天</p>
+        <p style="margin-top: 8px; font-size: 0.8rem;">住宿價格為參考價，實際以訂房平台為準</p>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="回到頁面頂端">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <polyline points="18 15 12 9 6 15"/>
+        </svg>
+    </button>
+
+    <script>
+        // Mobile navigation toggle
+        (function() {
+            var toggle = document.querySelector('.nav-toggle');
+            var menu = document.getElementById('nav-menu');
+            if (toggle && menu) {
+                toggle.addEventListener('click', function() {
+                    var isOpen = menu.classList.toggle('open');
+                    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                    toggle.setAttribute('aria-label', isOpen ? '關閉選單' : '開啟選單');
+                });
+
+                // Close menu when clicking a link
+                var links = menu.querySelectorAll('a');
+                for (var i = 0; i < links.length; i++) {
+                    links[i].addEventListener('click', function() {
+                        menu.classList.remove('open');
+                        toggle.setAttribute('aria-expanded', 'false');
+                        toggle.setAttribute('aria-label', '開啟選單');
+                    });
+                }
+            }
+        })();
+
+        // Back to top button visibility
+        (function() {
+            var btn = document.getElementById('backToTop');
+            if (!btn) return;
+
+            var scrollHandler = function() {
+                if (window.scrollY > 600) {
+                    btn.classList.add('visible');
+                } else {
+                    btn.classList.remove('visible');
+                }
+            };
+
+            window.addEventListener('scroll', scrollHandler, { passive: true });
+
+            btn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        })();
+
+        // Smooth scroll for in-page links (comparison table)
+        (function() {
+            var tableLinks = document.querySelectorAll('.compare-table a[href^="#"]');
+            for (var i = 0; i < tableLinks.length; i++) {
+                tableLinks[i].addEventListener('click', function(e) {
+                    var targetId = this.getAttribute('href');
+                    var target = document.querySelector(targetId);
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        target.focus({ preventScroll: true });
+                    }
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
