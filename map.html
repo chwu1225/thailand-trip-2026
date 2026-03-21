@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>路線地圖 — 2026 泰國親子自由行</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        :root {
+            --gold: #D4A843;
+            --teal: #2A9D8F;
+            --deep-purple: #264653;
+            --warm-white: #F8F4E8;
+            --segment-airport: #6c757d;
+            --segment-chiangmai: #2A9D8F;
+            --segment-chiangdao: #2D6A4F;
+            --segment-khaoyai: #E76F51;
+            --segment-kanchanaburi: #8B5E3C;
+            --segment-riverkwai: #1D3557;
+            --segment-amphawa: #E9C46A;
+            --segment-ayutthaya: #C1121F;
+            --segment-bangkok: #7B2CBF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', 'Kanit', sans-serif;
+            background: var(--warm-white);
+            color: var(--deep-purple);
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(38, 70, 83, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-brand {
+            font-family: 'Kanit', sans-serif;
+            color: var(--gold);
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--gold);
+        }
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-hero {
+            padding: 6rem 2rem 2rem;
+            background: linear-gradient(135deg, var(--deep-purple) 0%, #1a3a4a 100%);
+            color: white;
+            text-align: center;
+        }
+        .page-hero h1 {
+            font-family: 'Kanit', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .page-hero p {
+            opacity: 0.8;
+            font-size: 1rem;
+        }
+
+        /* Map Container */
+        .map-wrapper {
+            padding: 1rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        #map {
+            width: 100%;
+            height: 70vh;
+            min-height: 500px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            border: 3px solid var(--gold);
+        }
+
+        /* Legend */
+        .map-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.75rem;
+            padding: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 4px solid var(--color);
+        }
+        .legend-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .legend-nights {
+            margin-left: auto;
+            background: var(--deep-purple);
+            color: white;
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Route Info Cards */
+        .route-details {
+            max-width: 1400px;
+            margin: 1rem auto 2rem;
+            padding: 0 1rem;
+        }
+        .route-details h2 {
+            font-family: 'Kanit', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--deep-purple);
+            text-align: center;
+        }
+        .route-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        .route-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .route-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        .route-card-header {
+            padding: 1rem 1.2rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .route-card-header .emoji {
+            font-size: 2rem;
+        }
+        .route-card-header .info h3 {
+            font-family: 'Kanit', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+        }
+        .route-card-header .info span {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+        .route-card-body {
+            padding: 1rem 1.2rem;
+        }
+        .route-card-body .distance {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.6rem;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        .route-card-body .highlights {
+            list-style: none;
+            padding: 0;
+        }
+        .route-card-body .highlights li {
+            padding: 0.3rem 0;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: baseline;
+            gap: 0.4rem;
+        }
+        .route-card-body .highlights li::before {
+            content: '✦';
+            color: var(--gold);
+            flex-shrink: 0;
+        }
+        .transport-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: #f0f0f0;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Custom Leaflet Popup */
+        .leaflet-popup-content-wrapper {
+            border-radius: 12px !important;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2) !important;
+        }
+        .leaflet-popup-content {
+            margin: 0 !important;
+            min-width: 220px;
+        }
+        .popup-content {
+            padding: 1rem;
+        }
+        .popup-content h3 {
+            font-family: 'Kanit', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: var(--deep-purple);
+        }
+        .popup-content .popup-dates {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 0.5rem;
+        }
+        .popup-content .popup-hotel {
+            font-size: 0.85rem;
+            background: var(--warm-white);
+            padding: 0.4rem 0.6rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+        }
+        .popup-content .popup-highlights {
+            font-size: 0.82rem;
+            line-height: 1.5;
+        }
+        .popup-nights-badge {
+            display: inline-block;
+            background: var(--deep-purple);
+            color: white;
+            padding: 0.15rem 0.5rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.3rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--deep-purple);
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: block; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(38,70,83,0.98);
+                padding: 1rem 2rem;
+            }
+            #map { height: 55vh; min-height: 350px; }
+            .map-legend { grid-template-columns: repeat(2, 1fr); }
+            .route-cards { grid-template-columns: 1fr; }
+            .page-hero h1 { font-size: 1.5rem; }
+        }
+        @media (max-width: 480px) {
+            .map-legend { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+    <a href="index.html" class="nav-brand">🇹🇭 泰國親子行 2026</a>
+    <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <ul class="nav-links">
+        <li><a href="index.html">首頁</a></li>
+        <li><a href="itinerary.html">每日行程</a></li>
+        <li><a href="map.html" class="active">路線地圖</a></li>
+        <li><a href="hotels.html">住宿介紹</a></li>
+        <li><a href="costs.html">費用總覽</a></li>
+        <li><a href="checklist.html">行前準備</a></li>
+    </ul>
+</nav>
+
+<!-- Hero -->
+<header class="page-hero">
+    <h1>🗺️ 路線地圖</h1>
+    <p>9 個停靠點 ｜ 橫跨泰國北部到中部 ｜ 全程約 2,500 公里</p>
+</header>
+
+<!-- Legend -->
+<div class="map-legend">
+    <div class="legend-item" style="--color: var(--segment-airport)" onclick="flyTo(0)">
+        <span class="legend-dot" style="background: var(--segment-airport)"></span>
+        <span>① 曼谷機場</span>
+        <span class="legend-nights">1晚</span>
+    </div>
+    <div class="legend-item" style="--color: var(--segment-chiangmai)" onclick="flyTo(1)">
+        <span class="legend-dot" style="background: var(--segment-chiangmai)"></span>
+        <span>② 清邁古城</span>
+        <span class="legend-nights">5晚</span>
+    </div>
+    <div class="legend-item" style="--color: var(--segment-chiangdao)" onclick="flyTo(2)">
+        <span class="legend-dot" style="background: var(--segment-chiangdao)"></span>
+        <span>③ 清道</span>
+        <span class="legend-nights">3晚</span>
+    </div>
+    <div class="legend-item" style="--color: var(--segment-khaoyai)" onclick="flyTo(3)">
+        <span class="legend-dot" style="background: var(--segment-khaoyai)"></span>
+        <span>④ 考艾</span>
+        <span class="legend-nights">4晚</span>
+    </div>
+    <div class="legend-item" style="--color: var(--segment-kanchanaburi)" onclick="flyTo(4)">
+        <span class="legend-dot" style="background: var(--segment-kanchanaburi)"></span>
+        <span>⑤ 北碧</span>
+        <span class="legend-nights">2晚</span>
+    </div>
+    <div class="legend-item" style="--color: var(--segment-riverkwai)" onclick="flyTo(5)">
+        <span class="legend-dot" style="background: var(--segment-riverkwai)"></span>
+        <span>⑥ 桂河 ⭐</span>
+        <span class="legend-nights">2晚</span>
+    </div>
+    <div class="legend-item" style="--color: var(--segment-amphawa)" onclick="flyTo(6)">
+        <span class="legend-dot" style="background: var(--segment-amphawa)"></span>
+        <span>⑦ 安帕瓦</span>
+        <span class="legend-nights">1晚</span>
+    </div>
+    <div class="legend-item" style="--color: var(--segment-ayutthaya)" onclick="flyTo(7)">
+        <span class="legend-dot" style="background: var(--segment-ayutthaya)"></span>
+        <span>⑧ 大城</span>
+        <span class="legend-nights">1晚</span>
+    </div>
+    <div class="legend-item" style="--color: var(--segment-bangkok)" onclick="flyTo(8)">
+        <span class="legend-dot" style="background: var(--segment-bangkok)"></span>
+        <span>⑨ 曼谷</span>
+        <span class="legend-nights">5晚</span>
+    </div>
+</div>
+
+<!-- Map -->
+<div class="map-wrapper">
+    <div id="map"></div>
+</div>
+
+<!-- Route Details -->
+<div class="route-details">
+    <h2>📍 各段交通方式與距離</h2>
+    <div class="route-cards">
+
+        <div class="route-card">
+            <div class="route-card-header" style="background: linear-gradient(135deg, var(--segment-airport), var(--segment-chiangmai))">
+                <span class="emoji">✈️</span>
+                <div class="info">
+                    <h3>曼谷 → 清邁</h3>
+                    <span>Day 2 | 8/6（四）</span>
+                </div>
+            </div>
+            <div class="route-card-body">
+                <div class="distance">📏 約 700 km（直線）</div>
+                <ul class="highlights">
+                    <li>VietJet 國內線，約 1 小時</li>
+                    <li>機場搭雙條車到古城 ~150 THB</li>
+                </ul>
+                <span class="transport-badge">✈️ 飛機</span>
+            </div>
+        </div>
+
+        <div class="route-card">
+            <div class="route-card-header" style="background: linear-gradient(135deg, var(--segment-chiangmai), var(--segment-chiangdao))">
+                <span class="emoji">🚗</span>
+                <div class="info">
+                    <h3>清邁 → 清道</h3>
+                    <span>Day 7 | 8/11（二）</span>
+                </div>
+            </div>
+            <div class="route-card-body">
+                <div class="distance">📏 約 75 km ｜ 🕐 1.5 小時</div>
+                <ul class="highlights">
+                    <li>租車自駕，路況良好直線公路</li>
+                    <li>沿途稻田田園風光</li>
+                </ul>
+                <span class="transport-badge">🚗 自駕</span>
+            </div>
+        </div>
+
+        <div class="route-card">
+            <div class="route-card-header" style="background: linear-gradient(135deg, var(--segment-chiangdao), var(--segment-khaoyai))">
+                <span class="emoji">✈️🚗</span>
+                <div class="info">
+                    <h3>清道 → 考艾</h3>
+                    <span>Day 10 | 8/14（五）交通日</span>
+                </div>
+            </div>
+            <div class="route-card-body">
+                <div class="distance">📏 約 800 km ｜ 🕐 整天</div>
+                <ul class="highlights">
+                    <li>開車回清邁還車</li>
+                    <li>VietJet 飛曼谷廊曼 DMK</li>
+                    <li>DMK 取車開往考艾 2-3hr</li>
+                </ul>
+                <span class="transport-badge">✈️ 飛機 + 🚗 自駕</span>
+            </div>
+        </div>
+
+        <div class="route-card">
+            <div class="route-card-header" style="background: linear-gradient(135deg, var(--segment-khaoyai), var(--segment-kanchanaburi))">
+                <span class="emoji">🚗</span>
+                <div class="info">
+                    <h3>考艾 → 北碧</h3>
+                    <span>Day 14 | 8/18（二）交通日</span>
+                </div>
+            </div>
+            <div class="route-card-body">
+                <div class="distance">📏 約 350 km ｜ 🕐 4-5 小時</div>
+                <ul class="highlights">
+                    <li>經曼谷外環高速 M6+M81</li>
+                    <li>全程不進曼谷市區</li>
+                    <li>中途可在 Saraburi 休息</li>
+                </ul>
+                <span class="transport-badge">🚗 自駕</span>
+            </div>
+        </div>
+
+        <div class="route-card">
+            <div class="route-card-header" style="background: linear-gradient(135deg, var(--segment-kanchanaburi), var(--segment-riverkwai))">
+                <span class="emoji">🚗🛶</span>
+                <div class="info">
+                    <h3>北碧 → 桂河水上</h3>
+                    <span>Day 16 | 8/20（四）</span>
+                </div>
+            </div>
+            <div class="route-card-body">
+                <div class="distance">📏 約 60 km ｜ 🕐 1-1.5 小時</div>
+                <ul class="highlights">
+                    <li>開車到 Sai Yok 碼頭</li>
+                    <li>搭長尾船到漂浮度假村</li>
+                </ul>
+                <span class="transport-badge">🚗 自駕 + 🛶 長尾船</span>
+            </div>
+        </div>
+
+        <div class="route-card">
+            <div class="route-card-header" style="background: linear-gradient(135deg, var(--segment-riverkwai), var(--segment-amphawa))">
+                <span class="emoji">🚗</span>
+                <div class="info">
+                    <h3>桂河 → 安帕瓦</h3>
+                    <span>Day 18 | 8/22（六）</span>
+                </div>
+            </div>
+            <div class="route-card-body">
+                <div class="distance">📏 約 200 km ｜ 🕐 2.5-3 小時</div>
+                <ul class="highlights">
+                    <li>搭船回碼頭取車</li>
+                    <li>經 Nakhon Pathom 南下</li>
+                </ul>
+                <span class="transport-badge">🚗 自駕</span>
+            </div>
+        </div>
+
+        <div class="route-card">
+            <div class="route-card-header" style="background: linear-gradient(135deg, var(--segment-amphawa), var(--segment-ayutthaya))">
+                <span class="emoji">🚗</span>
+                <div class="info">
+                    <h3>安帕瓦 → 美功 → 大城</h3>
+                    <span>Day 19 | 8/23（日）</span>
+                </div>
+            </div>
+            <div class="route-card-body">
+                <div class="distance">📏 約 220 km ｜ 🕐 3.5 小時（含美功停留）</div>
+                <ul class="highlights">
+                    <li>先去美功鐵道市場（20分鐘）</li>
+                    <li>再經曼谷外環北上大城</li>
+                </ul>
+                <span class="transport-badge">🚗 自駕</span>
+            </div>
+        </div>
+
+        <div class="route-card">
+            <div class="route-card-header" style="background: linear-gradient(135deg, var(--segment-ayutthaya), var(--segment-bangkok))">
+                <span class="emoji">🚗</span>
+                <div class="info">
+                    <h3>大城 → 曼谷</h3>
+                    <span>Day 20 | 8/24（一）</span>
+                </div>
+            </div>
+            <div class="route-card-body">
+                <div class="distance">📏 約 80 km ｜ 🕐 1.5 小時</div>
+                <ul class="highlights">
+                    <li>高速公路直達曼谷</li>
+                    <li>抵達後還車</li>
+                </ul>
+                <span class="transport-badge">🚗 自駕</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>2026 泰國親子自由行 ｜ v4.0 ｜ 最後更新 2026-03-22</p>
+</footer>
+
+<script>
+// Locations data
+const stops = [
+    {
+        name: '① 曼谷機場',
+        subtitle: 'Suvarnabhumi Airport',
+        lat: 13.6900, lng: 100.7501,
+        color: '#6c757d',
+        nights: 1,
+        dates: '8/5（三）',
+        hotel: 'BS Residence Suvarnabhumi',
+        highlights: '抵達泰國，免費機場接送',
+        emoji: '✈️'
+    },
+    {
+        name: '② 清邁古城',
+        subtitle: 'Chiang Mai Old City',
+        lat: 18.7883, lng: 98.9853,
+        color: '#2A9D8F',
+        nights: 5,
+        dates: '8/6-10（四～一）',
+        hotel: 'SK House 2',
+        highlights: '騎大象、黏瀑布、週日步行街、寺廟',
+        emoji: '🏛️'
+    },
+    {
+        name: '③ 清道',
+        subtitle: 'Chiang Dao',
+        lat: 19.3686, lng: 98.9667,
+        color: '#2D6A4F',
+        nights: 3,
+        dates: '8/11-13（二～四）',
+        hotel: '⭐ Chiang Dao Nest 2',
+        highlights: '煤油燈探洞、溫泉、山頂寺廟',
+        emoji: '🏔️'
+    },
+    {
+        name: '④ 考艾',
+        subtitle: 'Khao Yai',
+        lat: 14.5186, lng: 101.3732,
+        color: '#E76F51',
+        nights: 4,
+        dates: '8/14-17（五～一）',
+        hotel: '⭐ Watermill Resort',
+        highlights: '農場牛仔秀、百萬蝙蝠、草泥馬',
+        emoji: '🦇'
+    },
+    {
+        name: '⑤ 北碧市區',
+        subtitle: 'Kanchanaburi City',
+        lat: 14.0410, lng: 99.0025,
+        color: '#8B5E3C',
+        nights: 2,
+        dates: '8/18-19（二～三）',
+        hotel: 'Mittapan Hotel',
+        highlights: '桂河大橋、死亡鐵路、地獄火隘口',
+        emoji: '🚂'
+    },
+    {
+        name: '⑥ 桂河水上',
+        subtitle: 'River Kwai (Sai Yok)',
+        lat: 14.2281, lng: 98.8597,
+        color: '#1D3557',
+        nights: 2,
+        dates: '8/20-21（四～五）',
+        hotel: '⭐ Boutique Raft Resort',
+        highlights: '漂浮木屋！伊拉旺瀑布、竹筏漂流',
+        emoji: '🏠'
+    },
+    {
+        name: '⑦ 安帕瓦',
+        subtitle: 'Amphawa',
+        lat: 13.4261, lng: 99.9528,
+        color: '#E9C46A',
+        nights: 1,
+        dates: '8/22（六）',
+        hotel: 'Bansuwan Homestay',
+        highlights: '水上市場、螢火蟲船、僧侶划船化緣',
+        emoji: '✨'
+    },
+    {
+        name: '⑧ 大城',
+        subtitle: 'Ayutthaya',
+        lat: 14.3532, lng: 100.5685,
+        color: '#C1121F',
+        nights: 1,
+        dates: '8/23（日）',
+        hotel: 'Auntie House985',
+        highlights: '樹根纏佛頭、船麵、美功鐵道市場',
+        emoji: '🌳'
+    },
+    {
+        name: '⑨ 曼谷',
+        subtitle: 'Bangkok',
+        lat: 13.7143, lng: 100.5872,
+        color: '#7B2CBF',
+        nights: 5,
+        dates: '8/24-28（一～五）',
+        hotel: 'Jasmine Resort',
+        highlights: 'Safari World、臥佛寺、兒童探索博物館、嘟嘟車',
+        emoji: '🛺'
+    }
+];
+
+// Flight paths (curved)
+const flights = [
+    { from: 0, to: 1, label: '✈️ VietJet 國內線' },
+    { from: 2, to: 3, label: '✈️ 清邁→曼谷→考艾' }
+];
+
+// Initialize map
+const map = L.map('map', {
+    scrollWheelZoom: true,
+    zoomControl: true
+}).setView([15.5, 100.0], 6);
+
+// Add tile layer (CartoDB Voyager for clean look)
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+    maxZoom: 19
+}).addTo(map);
+
+// Custom marker icon
+function createIcon(emoji, color) {
+    return L.divIcon({
+        className: 'custom-marker',
+        html: `<div style="
+            background: ${color};
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            cursor: pointer;
+        ">${emoji}</div>`,
+        iconSize: [40, 40],
+        iconAnchor: [20, 20],
+        popupAnchor: [0, -25]
+    });
+}
+
+// Add markers
+const markers = [];
+stops.forEach((stop, i) => {
+    const marker = L.marker([stop.lat, stop.lng], {
+        icon: createIcon(stop.emoji, stop.color)
+    }).addTo(map);
+
+    marker.bindPopup(`
+        <div class="popup-content">
+            <h3>${stop.emoji} ${stop.name}</h3>
+            <div class="popup-dates">${stop.dates} <span class="popup-nights-badge">${stop.nights}晚</span></div>
+            <div class="popup-hotel">🏨 ${stop.hotel}</div>
+            <div class="popup-highlights">✦ ${stop.highlights}</div>
+        </div>
+    `);
+
+    markers.push(marker);
+});
+
+// Draw route lines (driving routes)
+const driveSegments = [
+    [1, 2],  // Chiang Mai → Chiang Dao
+    [4, 5],  // Kanchanaburi → River Kwai
+    [5, 6],  // River Kwai → Amphawa
+    [6, 7],  // Amphawa → Ayutthaya (via Maeklong)
+    [7, 8],  // Ayutthaya → Bangkok
+];
+
+// Draw solid lines for driving
+driveSegments.forEach(([from, to]) => {
+    L.polyline(
+        [[stops[from].lat, stops[from].lng], [stops[to].lat, stops[to].lng]],
+        {
+            color: stops[to].color,
+            weight: 3,
+            opacity: 0.7,
+            dashArray: null
+        }
+    ).addTo(map);
+});
+
+// Long drive segments
+const longDriveSegments = [
+    [3, 4],  // Khao Yai → Kanchanaburi (long)
+];
+longDriveSegments.forEach(([from, to]) => {
+    L.polyline(
+        [[stops[from].lat, stops[from].lng], [stops[to].lat, stops[to].lng]],
+        {
+            color: stops[to].color,
+            weight: 3,
+            opacity: 0.5,
+            dashArray: '10, 8'
+        }
+    ).addTo(map);
+});
+
+// Draw dashed lines for flights
+flights.forEach(flight => {
+    const from = stops[flight.from];
+    const to = stops[flight.to];
+
+    // Create curved path for flight
+    const midLat = (from.lat + to.lat) / 2;
+    const midLng = (from.lng + to.lng) / 2;
+    const offsetLat = (to.lng - from.lng) * 0.15;
+    const offsetLng = -(to.lat - from.lat) * 0.15;
+
+    const curvePoints = [];
+    for (let t = 0; t <= 1; t += 0.05) {
+        const lat = (1-t)*(1-t)*from.lat + 2*(1-t)*t*(midLat + offsetLat) + t*t*to.lat;
+        const lng = (1-t)*(1-t)*from.lng + 2*(1-t)*t*(midLng + offsetLng) + t*t*to.lng;
+        curvePoints.push([lat, lng]);
+    }
+
+    L.polyline(curvePoints, {
+        color: '#E76F51',
+        weight: 2,
+        opacity: 0.6,
+        dashArray: '8, 12'
+    }).addTo(map);
+
+    // Add flight label at midpoint
+    const labelLat = midLat + offsetLat;
+    const labelLng = midLng + offsetLng;
+    L.marker([labelLat, labelLng], {
+        icon: L.divIcon({
+            className: 'flight-label',
+            html: `<div style="
+                background: rgba(231,111,81,0.9);
+                color: white;
+                padding: 2px 8px;
+                border-radius: 10px;
+                font-size: 11px;
+                white-space: nowrap;
+                font-family: Inter, sans-serif;
+            ">${flight.label}</div>`,
+            iconSize: [100, 20],
+            iconAnchor: [50, 10]
+        })
+    }).addTo(map);
+});
+
+// Add number labels next to markers
+stops.forEach((stop, i) => {
+    L.marker([stop.lat + 0.08, stop.lng + 0.15], {
+        icon: L.divIcon({
+            className: 'number-label',
+            html: `<div style="
+                background: ${stop.color};
+                color: white;
+                width: 22px;
+                height: 22px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 12px;
+                font-weight: 700;
+                font-family: Inter, sans-serif;
+                border: 2px solid white;
+                box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+            ">${i + 1}</div>`,
+            iconSize: [22, 22],
+            iconAnchor: [11, 11]
+        })
+    }).addTo(map);
+});
+
+// Fly to location function
+function flyTo(index) {
+    const stop = stops[index];
+    map.flyTo([stop.lat, stop.lng], index <= 2 ? 10 : 9, { duration: 1.5 });
+    markers[index].openPopup();
+}
+
+// Fit all markers
+const bounds = L.latLngBounds(stops.map(s => [s.lat, s.lng]));
+map.fitBounds(bounds.pad(0.1));
+</script>
+
+</body>
+</html>
