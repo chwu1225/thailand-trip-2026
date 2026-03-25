@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>清邁特色住宿精選 — 2026 泰國親子自由行</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4A843;
+            --teal: #2A9D8F;
+            --deep-purple: #264653;
+            --warm-white: #F8F4E8;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Kanit', sans-serif; background: var(--warm-white); color: var(--deep-purple); }
+
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(38, 70, 83, 0.95); backdrop-filter: blur(10px);
+            padding: 0.8rem 2rem; display: flex; justify-content: space-between; align-items: center;
+        }
+        .nav-brand { font-family: 'Kanit'; color: var(--gold); font-size: 1.1rem; font-weight: 600; text-decoration: none; }
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+        .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.9rem; }
+        .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+
+        .hero {
+            padding: 6rem 2rem 2.5rem; text-align: center;
+            background: linear-gradient(135deg, var(--deep-purple) 0%, #1a3a4a 100%); color: white;
+        }
+        .hero h1 { font-family: 'Kanit'; font-size: 2rem; margin-bottom: 0.5rem; }
+        .hero p { opacity: 0.8; font-size: 1rem; }
+
+        .cards { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; display: grid; gap: 2rem; }
+
+        .card {
+            background: white; border-radius: 16px; overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.15); }
+
+        .card-header {
+            padding: 1.5rem 1.8rem; color: white;
+            display: flex; justify-content: space-between; align-items: flex-start;
+        }
+        .card-header h2 { font-family: 'Kanit'; font-size: 1.4rem; margin-bottom: 0.3rem; }
+        .card-header .subtitle { font-size: 0.85rem; opacity: 0.9; }
+        .card-header .price-badge {
+            background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 12px;
+            text-align: center; white-space: nowrap;
+        }
+        .card-header .price-badge .amount { font-family: 'Kanit'; font-size: 1.3rem; font-weight: 700; }
+        .card-header .price-badge .unit { font-size: 0.7rem; opacity: 0.8; }
+
+        .card-body { padding: 1.5rem 1.8rem; }
+
+        .info-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.8rem; margin-bottom: 1.2rem;
+        }
+        .info-item {
+            background: var(--warm-white); padding: 0.6rem 0.8rem; border-radius: 10px;
+            font-size: 0.82rem; text-align: center;
+        }
+        .info-item .label { color: #888; font-size: 0.7rem; margin-bottom: 0.2rem; }
+        .info-item .value { font-weight: 600; color: var(--deep-purple); }
+        .info-item .value.green { color: #2D6A4F; }
+        .info-item .value.red { color: #C1121F; }
+
+        .features {
+            margin-bottom: 1.2rem; line-height: 1.8; font-size: 0.88rem;
+        }
+        .features strong { color: var(--teal); }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #FFF8E7, #FFF3D0); border-left: 4px solid var(--gold);
+            padding: 1rem 1.2rem; border-radius: 0 10px 10px 0; margin-bottom: 1.2rem;
+            font-size: 0.85rem;
+        }
+        .highlight-box .emoji { font-size: 1.2rem; margin-right: 0.3rem; }
+
+        .booking-links {
+            display: flex; flex-wrap: wrap; gap: 0.6rem;
+        }
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            padding: 0.6rem 1.2rem; border-radius: 10px; text-decoration: none;
+            font-size: 0.85rem; font-weight: 600; transition: all 0.2s;
+        }
+        .btn-booking { background: #003580; color: white; }
+        .btn-booking:hover { background: #00224f; }
+        .btn-agoda { background: #5C2D91; color: white; }
+        .btn-agoda:hover { background: #3d1d61; }
+        .btn-official { background: var(--teal); color: white; }
+        .btn-official:hover { background: #1f7a6f; }
+        .btn-airbnb { background: #FF5A5F; color: white; }
+        .btn-airbnb:hover { background: #d94449; }
+        .btn-tripadvisor { background: #34E0A1; color: #1a1a1a; }
+        .btn-tripadvisor:hover { background: #28c48c; }
+
+        .ranking-badge {
+            position: absolute; top: -8px; left: -8px; width: 48px; height: 48px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .compare-table { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+        .compare-table h2 { font-family: 'Kanit'; text-align: center; margin-bottom: 1rem; color: var(--deep-purple); }
+        .table-wrap { overflow-x: auto; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+        table { width: 100%; border-collapse: collapse; background: white; font-size: 0.85rem; }
+        th { background: var(--deep-purple); color: white; padding: 0.8rem; text-align: left; position: sticky; top: 0; }
+        td { padding: 0.7rem 0.8rem; border-bottom: 1px solid #eee; }
+        tr:hover td { background: #f8f4e8; }
+        .winner { background: #FFF8E7 !important; }
+
+        .footer {
+            background: var(--deep-purple); color: rgba(255,255,255,0.7);
+            text-align: center; padding: 2rem; font-size: 0.85rem; margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .card-header { flex-direction: column; gap: 0.8rem; }
+            .card-header .price-badge { align-self: flex-start; }
+            .info-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav">
+    <a href="index.html" class="nav-brand">🇹🇭 泰國親子行 2026</a>
+    <ul class="nav-links">
+        <li><a href="index.html">首頁</a></li>
+        <li><a href="itinerary.html">每日行程</a></li>
+        <li><a href="map.html">路線地圖</a></li>
+        <li><a href="hotels.html">住宿介紹</a></li>
+        <li><a href="cm-stays.html" class="active">清邁特色住宿</a></li>
+        <li><a href="costs.html">費用總覽</a></li>
+        <li><a href="checklist.html">行前準備</a></li>
+    </ul>
+</nav>
+
+<header class="hero">
+    <h1>🏡 清邁特色住宿精選 TOP 4</h1>
+    <p>2大2小實際價格驗證 ｜ 含早餐＋泳池＋動物互動</p>
+</header>
+
+<div class="cards">
+
+    <!-- 1. Papai Country Lodge -->
+    <div class="card" id="papai">
+        <div class="card-header" style="background: linear-gradient(135deg, #2A9D8F, #264653);">
+            <div>
+                <h2>🥇 Papai Country Lodge 懶人河度假村</h2>
+                <div class="subtitle">⭐⭐⭐⭐ 四星級 ｜ Doi Saket 區 ｜ Booking 9.0 分 ｜ Doi Saket 排名第一</div>
+            </div>
+            <div class="price-badge">
+                <div class="amount">~1,100 THB</div>
+                <div class="unit">2大2小/晚（含早餐）</div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="info-grid">
+                <div class="info-item"><div class="label">兒童收費</div><div class="value green">7歲以下免費！</div></div>
+                <div class="info-item"><div class="label">早餐</div><div class="value green">✅ 含早餐</div></div>
+                <div class="info-item"><div class="label">泳池</div><div class="value green">✅ 漂漂河＋兒童池＋按摩池</div></div>
+                <div class="info-item"><div class="label">距古城</div><div class="value">45 分鐘車程</div></div>
+                <div class="info-item"><div class="label">動物</div><div class="value red">❌ 無</div></div>
+                <div class="info-item"><div class="label">房型</div><div class="value">Villa（冷氣＋電視＋冰箱）</div></div>
+            </div>
+
+            <div class="highlight-box">
+                <span class="emoji">🏊</span> <strong>全清邁唯一有 Lazy River（漂漂河）的度假村！</strong>你的 6 歲和 2 歲都免費入住。
+            </div>
+
+            <div class="features">
+                <strong>泳池設施</strong>：Lazy River 漂漂河（可漂著繞一圈）＋深淺兩區泳池＋瀑布可游到下面＋Jacuzzi 按摩池＋兒童池在樹蔭下<br>
+                <strong>遊樂場</strong>：推車玩具＋溜滑梯＋彈跳床，各年齡都有<br>
+                <strong>其他設施</strong>：免費腳踏車＋Spa 按摩＋Tara 泰式餐廳＋棕櫚樹花園<br>
+                <strong>位置優勢</strong>：靠近 San Kamphaeng 溫泉（車程15min）
+            </div>
+
+            <div class="booking-links">
+                <a href="https://www.booking.com/hotel/th/papai-country-lodge.html" target="_blank" class="btn btn-booking">Booking.com</a>
+                <a href="https://www.agoda.com/papai-country-lodge/hotel/chiang-mai-th.html" target="_blank" class="btn btn-agoda">Agoda</a>
+                <a href="https://www.hotels.com/ho475509/papai-country-lodge-doi-saket-thailand/" target="_blank" class="btn btn-official">Hotels.com</a>
+                <a href="https://www.tripadvisor.com/Hotel_Review-g1961657-d5043812-Reviews-Papai_Country_Lodge_Long_Stay-Doi_Saket.html" target="_blank" class="btn btn-tripadvisor">TripAdvisor</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Oon Valley -->
+    <div class="card" id="oon-valley">
+        <div class="card-header" style="background: linear-gradient(135deg, #2D6A4F, #1B4332);">
+            <div>
+                <h2>🥈 Oon Valley + Dutch Farm 農場度假村</h2>
+                <div class="subtitle">☆ 農場住宿 ｜ San Kamphaeng 區 ｜ Booking 8.7 分 ｜ 40 英畝園區</div>
+            </div>
+            <div class="price-badge">
+                <div class="amount">~900-1,400 THB</div>
+                <div class="unit">2大2小/晚</div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="info-grid">
+                <div class="info-item"><div class="label">兒童收費</div><div class="value">需確認（2歲免費）</div></div>
+                <div class="info-item"><div class="label">早餐</div><div class="value">可選加購</div></div>
+                <div class="info-item"><div class="label">泳池</div><div class="value green">✅ 水上樂園</div></div>
+                <div class="info-item"><div class="label">距古城</div><div class="value">45 分鐘車程</div></div>
+                <div class="info-item"><div class="label">動物</div><div class="value green">✅ 矮馬＋綿羊＋雞鴨鵝</div></div>
+                <div class="info-item"><div class="label">房型</div><div class="value">Villa / 家庭房</div></div>
+            </div>
+
+            <div class="highlight-box">
+                <span class="emoji">🐴</span> <strong>英國設特蘭矮馬完全無圍欄！</strong>小孩可以自由觸摸餵食。騎馬只要 100 THB/10分鐘。全清邁最便宜的動物農場住宿。
+            </div>
+
+            <div class="features">
+                <strong>動物互動</strong>：設特蘭矮馬（英國進口）＋綿羊＋鵝＋雞鴨 — 全部無圍欄自由接觸！兒童騎馬 100 THB/10min。馬匹治療（Hippotherapy）適合各種兒童<br>
+                <strong>水上設施</strong>：大型泳池＋水上樂園設施＋山景環繞<br>
+                <strong>其他活動</strong>：免費腳踏車騎稻田＋室內外遊樂場＋遊戲室<br>
+                <strong>園區</strong>：40英畝（約16公頃），被翠綠稻田和山景包圍<br>
+                <strong>特別服務</strong>：私人入住/退房＋迷你超市＋咖啡廳＋戶外座位
+            </div>
+
+            <div class="booking-links">
+                <a href="https://www.booking.com/hotel/th/oon-valley-farm-stay.html" target="_blank" class="btn btn-booking">Booking.com</a>
+                <a href="https://www.agoda.com/oon-valley-farm-stay/hotel/lampang-th.html" target="_blank" class="btn btn-agoda">Agoda</a>
+                <a href="https://www.oonvalleyfarmstay.com/en/" target="_blank" class="btn btn-official">官網</a>
+                <a href="https://www.klook.com/en-US/hotels/detail/857464-oon-valley-farm-stay/" target="_blank" class="btn btn-tripadvisor">Klook</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Karina Resort -->
+    <div class="card" id="karina">
+        <div class="card-header" style="background: linear-gradient(135deg, #E9C46A, #D4A843);">
+            <div>
+                <h2>🥉 Karina Resort 稻田森林木屋</h2>
+                <div class="subtitle">⭐⭐~⭐⭐⭐ ｜ San Kamphaeng 區 ｜ Booking 8.2 分 ｜ 9歲以下免費</div>
+            </div>
+            <div class="price-badge">
+                <div class="amount" style="color: var(--deep-purple);">~1,200 THB</div>
+                <div class="unit" style="color: var(--deep-purple);">2大2小/晚（含早餐）</div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="info-grid">
+                <div class="info-item"><div class="label">兒童收費</div><div class="value green">9歲以下免費！</div></div>
+                <div class="info-item"><div class="label">早餐</div><div class="value green">✅ 含早餐</div></div>
+                <div class="info-item"><div class="label">泳池</div><div class="value green">✅ 泳池＋兒童池</div></div>
+                <div class="info-item"><div class="label">距古城</div><div class="value">30 分鐘車程</div></div>
+                <div class="info-item"><div class="label">動物</div><div class="value green">✅ 山羊＋水牛</div></div>
+                <div class="info-item"><div class="label">房型</div><div class="value">森林木屋（28間）</div></div>
+            </div>
+
+            <div class="highlight-box">
+                <span class="emoji">🌾</span> <strong>木棧道才能到達的森林木屋！</strong>被稻田和農地完全包圍。8月稻田翠綠是全年最美的時候。含早餐＋泳池＋兒童池＋動物，每晚只要 1,200 THB。
+            </div>
+
+            <div class="features">
+                <strong>住宿特色</strong>：28間獨立木屋散佈在森林中，需經木棧道和高架步道才能到達（像探險！）。每間有陽台＋衛星電視＋冰箱＋吹風機<br>
+                <strong>自然環境</strong>：被稻田和自產農地包圍。園區自種蔬果供餐廳使用（Farm to Table）。8月稻田翠綠是全年最美<br>
+                <strong>動物</strong>：園區前方有山羊和水牛可餵食<br>
+                <strong>餐廳</strong>：對外營業的泰式＋西式餐廳，食材來自自家農場，有兒童玩具和繪本<br>
+                <strong>其他</strong>：泳池＋兒童池＋遊樂場＋免費腳踏車
+            </div>
+
+            <div class="booking-links">
+                <a href="https://www.booking.com/hotel/th/karina-resort-chiang-mai-chiang-mai.html" target="_blank" class="btn btn-booking">Booking.com</a>
+                <a href="https://www.agoda.com/karina-resort-chiang-mai_3/hotel/chiang-mai-th.html" target="_blank" class="btn btn-agoda">Agoda</a>
+                <a href="https://chiangmaifamilyguide.com/family-friendly-karina-resort-chiang-mai/" target="_blank" class="btn btn-tripadvisor">家庭指南評測</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Hang Tueng -->
+    <div class="card" id="hang-tueng">
+        <div class="card-header" style="background: linear-gradient(135deg, #8B5E3C, #5C3A1E);">
+            <div>
+                <h2>🏅 Hang Tueng Farmstay 農場民宿</h2>
+                <div class="subtitle">☆ 農場住宿 ｜ 近古城 15 分鐘 ｜ Booking 9.5 分！（全清邁最高之一）</div>
+            </div>
+            <div class="price-badge">
+                <div class="amount">~1,500-2,500 THB</div>
+                <div class="unit">2大2小/晚（含早餐）</div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="info-grid">
+                <div class="info-item"><div class="label">兒童收費</div><div class="value">需確認</div></div>
+                <div class="info-item"><div class="label">早餐</div><div class="value green">✅ 亞洲式早餐</div></div>
+                <div class="info-item"><div class="label">泳池</div><div class="value red">❌ 無泳池</div></div>
+                <div class="info-item"><div class="label">距古城</div><div class="value green">僅 15 分鐘！</div></div>
+                <div class="info-item"><div class="label">動物</div><div class="value green">✅ 水牛＋雞鴨</div></div>
+                <div class="info-item"><div class="label">房型</div><div class="value">農場小屋</div></div>
+            </div>
+
+            <div class="highlight-box">
+                <span class="emoji">🐃</span> <strong>Booking 9.5 分！真正的農場工作體驗。</strong>餵泰國水牛＋幫水牛洗澡＋撿雞蛋＋插秧拔秧。離古城只要 15 分鐘，是最近的農場住宿。
+            </div>
+
+            <div class="features">
+                <strong>農場體驗</strong>：餵泰國水牛＋幫水牛洗澡（小孩超愛！）＋撿雞蛋＋插秧拔秧體驗＋草藥球製作<br>
+                <strong>兒童活動</strong>：週末有專門的兒童農場活動日。可以跟農場雞鴨互動、學習傳統泰北農耕<br>
+                <strong>位置優勢</strong>：離古城 Grab 僅 15 分鐘！不需要開車也能到達（全清邁最近的農場住宿）<br>
+                <strong>評價</strong>：Booking 9.5 分是全清邁農場住宿中最高的。住客讚「真實的農場體驗，不是表演」<br>
+                <strong>注意</strong>：無泳池、設施比較簡樸（是真正的農場，不是度假村）
+            </div>
+
+            <div class="booking-links">
+                <a href="https://www.booking.com/hotel/th/etan-hangtueng-baan-iiaetn-aehngtueng.html" target="_blank" class="btn btn-booking">Booking.com</a>
+                <a href="https://www.airbnb.com/rooms/811878635077156089" target="_blank" class="btn btn-airbnb">Airbnb</a>
+                <a href="https://www.hangtuengfarm.com/" target="_blank" class="btn btn-official">官網</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Comparison Table -->
+<div class="compare-table">
+    <h2>📊 四間一次比較</h2>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>項目</th>
+                    <th>🥇 Papai 懶人河</th>
+                    <th>🥈 Oon Valley 農場</th>
+                    <th>🥉 Karina 稻田</th>
+                    <th>🏅 Hang Tueng 農場</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>2大2小/晚</strong></td>
+                    <td class="winner"><strong>~1,100 THB</strong></td>
+                    <td><strong>~900-1,400</strong></td>
+                    <td><strong>~1,200</strong></td>
+                    <td><strong>~1,500-2,500</strong></td>
+                </tr>
+                <tr>
+                    <td>星等</td>
+                    <td>⭐⭐⭐⭐</td>
+                    <td>☆ 農場</td>
+                    <td>⭐⭐~⭐⭐⭐</td>
+                    <td>☆ 農場</td>
+                </tr>
+                <tr>
+                    <td>Booking 評分</td>
+                    <td><strong>9.0</strong></td>
+                    <td>8.7</td>
+                    <td>8.2</td>
+                    <td class="winner"><strong>9.5！</strong></td>
+                </tr>
+                <tr>
+                    <td>含早餐</td>
+                    <td>✅ 含</td>
+                    <td>可選加購</td>
+                    <td>✅ 含</td>
+                    <td>✅ 含</td>
+                </tr>
+                <tr>
+                    <td>泳池</td>
+                    <td class="winner">✅ 漂漂河＋兒童池＋按摩池</td>
+                    <td>✅ 水上樂園</td>
+                    <td>✅ 泳池＋兒童池</td>
+                    <td>❌</td>
+                </tr>
+                <tr>
+                    <td>動物</td>
+                    <td>❌</td>
+                    <td class="winner">✅ 矮馬＋綿羊＋雞鴨（無圍欄）</td>
+                    <td>✅ 山羊＋水牛</td>
+                    <td>✅ 水牛＋雞鴨</td>
+                </tr>
+                <tr>
+                    <td>獨特體驗</td>
+                    <td>漂漂河＋瀑布泳池</td>
+                    <td>騎矮馬＋馬匹治療</td>
+                    <td>木棧道森林木屋＋稻田景</td>
+                    <td class="winner">餵水牛洗澡＋撿雞蛋＋插秧</td>
+                </tr>
+                <tr>
+                    <td>距古城</td>
+                    <td>45 min</td>
+                    <td>45 min</td>
+                    <td>30 min</td>
+                    <td class="winner">15 min</td>
+                </tr>
+                <tr>
+                    <td>6歲最愛</td>
+                    <td>漂漂河漂一圈！</td>
+                    <td>自己騎馬！</td>
+                    <td>走木棧道探險！</td>
+                    <td>幫水牛洗澡！</td>
+                </tr>
+                <tr>
+                    <td>2歲最愛</td>
+                    <td>兒童池玩水</td>
+                    <td>摸綿羊</td>
+                    <td>看山羊＋泳池</td>
+                    <td>看雞鴨</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>2026 泰國親子自由行 ｜ 清邁特色住宿精選 ｜ v5.0</p>
+    <p style="margin-top: 0.5rem;">價格為 2026 年 8 月淡季估算，實際價格以訂房平台為準</p>
+</footer>
+
+</body>
+</html>
